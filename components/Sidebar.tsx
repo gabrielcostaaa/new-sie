@@ -4,6 +4,7 @@ import React, { useState, useContext, createContext } from 'react';
 import { ChevronFirst, ChevronLast } from 'lucide-react';
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { SidebarItemProps } from '@/types';
 
 
 
@@ -27,7 +28,7 @@ const Sidebar = ({ children }) => {
   );
 }
 
-export function SidebarItem({ icon, text, alert, caminho }) {
+export function SidebarItem({ icon, text, alert, caminho }: SidebarItemProps) {
   const { expanded } = useContext(SidebarContext);
   const pathname = usePathname()
   const isActive = pathname === caminho

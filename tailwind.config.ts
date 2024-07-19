@@ -21,6 +21,10 @@ const config = {
       },
     },
     extend: {
+      backgroundImage: {
+        'certificado-gradient': 'linear-gradient(to right, #C8102E, #F15C5C)',
+        'declaracao-gradient': 'linear-gradient(to right, #34D399, #A0F1C1)',
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
