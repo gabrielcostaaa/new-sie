@@ -1,10 +1,7 @@
 "use client"
 
-import MyQRCode from '@/components/MyQRCode';
 import MyQRCodeScanner from '@/components/MyQRCodeScanner';
 import CardTicket from '@/components/CardTicket';
-
-const qrValue = 'abobrinha é muito zika'
 
 const tickets: Tickets[] = [
   {

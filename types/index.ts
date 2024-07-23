@@ -57,6 +57,19 @@ export interface ListCardTicketsProps {
     tickets: Tickets[]
 }
 
+export interface Events {
+    id: number;
+    nameEvent: string;
+    subtitleEvent: string;
+    dateEvent: string;
+    imageEvent: string;
+    municipioEvent: string;
+}
+
+export interface ListEventsProps {
+    events: Events[]
+}
+
 
 export interface PaginationUsersProps {
     currentPage: number;

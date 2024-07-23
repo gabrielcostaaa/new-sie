@@ -5,6 +5,8 @@ import { ListCardTicketsProps, brasoes } from "@/types"
 import MyQRCode from '@/components/MyQRCode';
 import MyQRCodeScanner from '@/components/MyQRCodeScanner';
 
+
+
 export default function CardTicket( { tickets }: ListCardTicketsProps) {
   return (
 <Card className="w-full max-w-md">

@@ -30,10 +30,12 @@ export default function Component() {
         <Button variant="ghost" size="icon" className="rounded-full">
           <MessageCircleMore className="h-5 w-5" />
         </Button>
-        <Button>
+        <Link href={'/admin/evento/novo'}>
+      <Button>
           Novo Evento
           <Plus className="ml-2 h-4 w-4" />
         </Button>
+      </Link>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon" className="rounded-full">
