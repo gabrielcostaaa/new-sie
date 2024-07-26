@@ -1,28 +1,5 @@
 import { ReactNode } from 'react'
 
-export const brasoes = {
-    "Águas de Chapecó": "/Brasão Municípios Amosc sem fundo/Águas de Chapecó.png",
-    "Águas Frias": "/Brasão Municípios Amosc sem fundo/Águas Frias.png",
-    "Arvoredo": "/Brasão Municípios Amosc sem fundo/Arvoredo.png",
-    "Caxambu do Sul": "/Brasão Municípios Amosc sem fundo/Caxambu do Sul.png",
-    "Chapecó": "/Brasão Municípios Amosc sem fundo/Chapecó.png",
-    "Cordilheira Alta": "/Brasão Municípios Amosc sem fundo/Cordilheira Alta.png",
-    "Coronel Freitas": "/Brasão Municípios Amosc sem fundo/Coronel Freitas.png",
-    "Formosa do Sul": "/Brasão Municípios Amosc sem fundo/Formosa do Sul.png",
-    "Guatambu": "/Brasão Municípios Amosc sem fundo/Guatambu.png",
-    "Jardinópolis": "/Brasão Municípios Amosc sem fundo/Jardinópolis.png",
-    "Nova Erechim": "/Brasão Municípios Amosc sem fundo/Nova Erechim.png",
-    "Nova Itaberaba": "/Brasão Municípios Amosc sem fundo/Nova Itaberaba.png",
-    "Paial": "/Brasão Municípios Amosc sem fundo/Paial.png",
-    "Pinhalzinho": "/Brasão Municípios Amosc sem fundo/Pinhalzinho.png",
-    "Planalto Alegre": "/Brasão Municípios Amosc sem fundo/Planalto Alegre.png",
-    "Santiago do Sul": "/Brasão Municípios Amosc sem fundo/Santiago do Sul.png",
-    "São Carlos": "/Brasão Municípios Amosc sem fundo/São Carlos.png",
-    "Serra Alta": "/Brasão Municípios Amosc sem fundo/Serra Alta.png",
-    "Sul Brasil": "/Brasão Municípios Amosc sem fundo/Sul Brasil.png",
-    "União do Oeste": "/Brasão Municípios Amosc sem fundo/União do Oeste.png"
-}
-
 export interface SidebarItemProps {
     icon: ReactNode
     text: string
@@ -31,11 +8,20 @@ export interface SidebarItemProps {
 }
 
 export interface User {
-    id: string;
+    id: Number;
     name: string;
+    email: string;
     cpf: string;
+    rg: string;
+    numerowhatsapp: string;
+    nacionalidade: string;
+    estado: string;
     municipio: string;
-    avatar: string;
+    cargo: string;
+    cidadeTrabalho: string;
+    entidade: string;
+    numeroTrabalho: string;
+    avatar: string | null;
 }
 
 export interface ListUsersProps {
@@ -62,6 +48,7 @@ export interface Events {
     nameEvent: string;
     subtitleEvent: string;
     dateEvent: string;
+    declaraoEvent: Number;
     imageEvent: string;
     municipioEvent: string;
 }

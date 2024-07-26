@@ -13,7 +13,7 @@ import { ChartTooltipContent, ChartTooltip, ChartContainer } from "@/components/
 
 export default function Dashboard() {
   return (
-    <div className="grid min-h-screen w-full bg-muted/40">
+    <div className="grid min-h-screen w-full">
       <main className="grid flex-1 gap-4 p-4 sm:gap-8 sm:p-6">
         <h1 className="font-semibold text-lg">Menu Principal</h1>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

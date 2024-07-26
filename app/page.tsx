@@ -1,12 +1,17 @@
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import React from 'react'
-import LoginPage from '../components/LoginPage'
+import LoginPageShad from '../components/LoginPageShad'
+
 
 export default function Home() {
+
   return (
-      <div className="flex flex-col items-center justify-center min-h-screen">
-        <LoginPage />
+    <div className="flex min-h-screen">
+      <div className="hidden lg:flex lg:w-2/3 items-center justify-center">
+        <img src="bg.jpg" alt="Background" className="h-full w-full object-cover" />
       </div>
+      <div className="w-full lg:w-1/3 flex items-center justify-center">
+        <LoginPageShad />
+      </div>
+    </div>
   );
 }

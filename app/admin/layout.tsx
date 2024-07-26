@@ -1,10 +1,17 @@
 import React from 'react';
 import Sidebar, { SidebarItem } from '@/components/Sidebar';
 import Navbar from '@/components/Navbar';
-import { LayoutDashboard, Presentation, MicVocal, UsersRound, ClipboardList, HousePlus, Ticket, LogOut, Users } from 'lucide-react'
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuSeparator, DropdownMenuItem } from "@/components/ui/dropdown-menu"
+import { LayoutDashboard, Presentation, MicVocal, UsersRound, ClipboardList, Ticket, LogOut } from 'lucide-react'
+import { DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
+import { getServerSession } from "next-auth"
+import { redirect } from "next/navigation";
 
-export default function AdminLayout({ children }) {
+export default async function  AdminLayout({ children }) {
+  const session = await getServerSession()
+
+  if (!session){
+    redirect("/")
+  }
 
   return (
     <div className='h-screen flex flex-col'>
@@ -48,6 +55,7 @@ export default function AdminLayout({ children }) {
           <SidebarItem
             icon={<LogOut size={30}/>}
             text="Sair"
+            caminho='/'
           />
         </Sidebar>
         <main className='h-screen w-screen'>

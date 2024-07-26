@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
-import { Eye, EyeOff } from 'lucide-react'
+"use client";
+
+import React, { useState } from 'react';
+import { Eye, EyeOff } from 'lucide-react';
 
 const PasswordToggle = ({ inputId }) => {
-  const [passwordVisible, setPasswordVisible] = useState(true);
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -14,18 +16,17 @@ const PasswordToggle = ({ inputId }) => {
 
   return (
     <button
-      type="button"
-      onClick={togglePasswordVisibility}
-      className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500"
+    type="button"
+    onClick={togglePasswordVisibility}
+    className="absolute inset-y-0 right-2 flex items-center mt-6"
     >
       {passwordVisible ? (
-        <EyeOff className="mt-2 w-6 h-6 text-gray-200" />
+        <EyeOff className="w-6 h-6 text-gray-500" />
       ) : (
-        <Eye className="mt-2 w-6 h-6 text-gray-200" />
+        <Eye className="w-6 h-6 text-gray-500" />
       )}
     </button>
   );
 };
 
 export default PasswordToggle;
-

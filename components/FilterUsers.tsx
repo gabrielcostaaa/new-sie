@@ -24,10 +24,12 @@ export default function Component() {
             <SelectItem value="pro">PRO</SelectItem>
           </SelectContent>
         </Select>
-        <Button className="bg-primary text-primary-foreground flex items-center gap-2">
-            <UserRoundPlus className=""/>
-            <span>Novo Usuário</span>
-        </Button>
+        <Link href={'/admin/palestrante/novo'}>
+          <Button className="bg-primary text-primary-foreground flex items-center gap-2">
+              <UserRoundPlus className=""/>
+              <span>Novo Usuário</span>
+          </Button>
+        </Link>
       </div>
     </div>
   )

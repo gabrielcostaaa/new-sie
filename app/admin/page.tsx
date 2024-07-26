@@ -1,10 +1,15 @@
 import Dashboard from "@/components/Dashboard";
-import { Button } from "@/components/ui/button";
+import { getServerSession } from "next-auth"
+import { redirect } from "next/navigation";
 
-export default function Admin() {
+export default async function Admin() {
+  const session = await getServerSession()
+
+  if (!session){
+    redirect("/")
+  }
+
   return (
-    <>
       <Dashboard/>
-    </>
   );
 }

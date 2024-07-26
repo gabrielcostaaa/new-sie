@@ -3,7 +3,8 @@
 import React, { useState } from 'react'
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
-import { ListUsersProps, brasoes } from "@/types"
+import { ListUsersProps } from "@/types"
+import brasoes from '@/app/data/constants/brasoes'
 import PaginationUsers from "@/components/PaginationUsers"
 
 const ITEMS_PER_PAGE = 9
@@ -38,7 +39,7 @@ export default function ListUsers({ users }: ListUsersProps) {
           </TableHeader>
           <TableBody>
             {currentUsers.map((user) => (
-              <TableRow key={user.id}>
+              <TableRow key={user.id} className='cursor-pointer'>
                 <TableCell className="flex items-center gap-x-4 font-medium">
                   <Avatar className="h-8 w-8">
                     <AvatarImage src={user.avatar} />

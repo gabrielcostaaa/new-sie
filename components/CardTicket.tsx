@@ -1,10 +1,9 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Calendar, Clock, MapPin } from 'lucide-react'
-import { ListCardTicketsProps, brasoes } from "@/types"
+import { ListCardTicketsProps } from "@/types"
+import brasoes from "@/app/data/constants/brasoes"
 import MyQRCode from '@/components/MyQRCode';
-import MyQRCodeScanner from '@/components/MyQRCodeScanner';
-
 
 
 export default function CardTicket( { tickets }: ListCardTicketsProps) {
