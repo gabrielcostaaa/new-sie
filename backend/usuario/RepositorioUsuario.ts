@@ -19,7 +19,7 @@ export async function createAccount(formData: FormData) {
         const user_city_work = formData.get('user_city_work') as string;
         const user_entity = formData.get('user_entity') as string;
         const user_number_work = formData.get('user_number_work') as string;
-        const user_avatar = formData.get('user_avatar') as string | null;  // Se você está lidando com o caminho da imagem como string
+        const user_avatar = formData.get('user_avatar') as string | null;
 
         const response = await prisma.user.create({
             data: {
@@ -45,3 +45,12 @@ export async function createAccount(formData: FormData) {
     }
 }
 
+export async function getAllUsers() {
+    try {
+        const users = await prisma.user.findMany();
+        return users;
+    } catch (error) {
+        console.error("Erro ao obter usuários:", error);
+        throw error;
+    }
+}

@@ -1,15 +1,31 @@
-import ListUsers from "@/components/ListUsers";
-import FilterUsers from "@/components/FilterUsers"
-import users from '../../data/constants/user'
-//<h1>Aqui a página da listagem de todos os Palestrantes para o Admin</h1>
-//<h2>Onde ele tera uma listagem de todos os palestrantes do sistema, possibilitando cadastrar e filtrar também</h2>
+'use client'
 
+import { useEffect, useState } from 'react';
+import ListUsers from "@/components/ListUsers";
+import FilterUsers from "@/components/FilterUsers";
+import { getAllUsers } from '@/backend/usuario/RepositorioUsuario'; // Ajuste o caminho conforme a localização do seu arquivo
 
 export default function Palestrante() {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    async function fetchUsers() {
+      try {
+        const fetchedUsers = await getAllUsers();
+        console.log("Usuários recebidos:", fetchedUsers); // Verifica o que está sendo recebido
+        setUsers(fetchedUsers);
+      } catch (error) {
+        console.error("Erro ao buscar usuários:", error);
+      }
+    }
+
+    fetchUsers();
+  }, []);
+
   return (
     <>
-    <FilterUsers/>
-    <ListUsers users={users}/>
+      <FilterUsers />
+      <ListUsers users={users} />
     </>
   );
 }

@@ -1,10 +1,11 @@
 import { Input } from "@/components/ui/input"
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem, SelectGroup } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { UserRoundSearch, UserRoundPlus } from 'lucide-react';
+import municipios from "@/app/data/constants/municipios"
 import Link from "next/link"
 
 export default function Component() {
@@ -16,12 +17,17 @@ export default function Component() {
           <Input type="search" placeholder="Buscar Usuário" className="pl-8" />
         </div>
         <Select>
-          <SelectTrigger>
-            <SelectValue placeholder="Município" />
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="Selecione a cidade" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="hobbyist">Hobbyist</SelectItem>
-            <SelectItem value="pro">PRO</SelectItem>
+          <SelectGroup>
+            {municipios.map(municipio => (
+              <SelectItem key={municipio} value={municipio}>
+                {municipio}
+              </SelectItem>
+            ))}
+          </SelectGroup>
           </SelectContent>
         </Select>
         <Link href={'/admin/palestrante/novo'}>

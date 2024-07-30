@@ -6,6 +6,9 @@ import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
 import { Checkbox } from "@/components/ui/checkbox"
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectGroup, SelectItem } from "@/components/ui/select"
+import municipios from "@/app/data/constants/municipios"
+
 
 export default function Component() {
   return (
@@ -75,7 +78,20 @@ export default function Component() {
             </div>
             <div className="grid gap-2">
               <Label htmlFor="municipality">Município</Label>
-              <Input id="municipality" placeholder="Digite o município" />
+              <Select>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Selecione a cidade" />
+                </SelectTrigger>
+                <SelectContent>
+                <SelectGroup>
+                  {municipios.map(municipio => (
+                    <SelectItem key={municipio} value={municipio}>
+                      {municipio}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+                </SelectContent>
+              </Select>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-6">

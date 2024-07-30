@@ -7,6 +7,9 @@ import { Button } from "@/components/ui/button"
 import React, { useState } from 'react'
 import { User } from "@/types"
 import { createAccount } from "@/backend/usuario/RepositorioUsuario"
+import municipios from "@/app/data/constants/municipios"
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectGroup, SelectItem } from "@/components/ui/select"
+import Link from "next/link"
 
 export default function Component() {
   return (
@@ -71,7 +74,20 @@ export default function Component() {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="user_city_work">Cidade que Trabalha</Label>
-                <Input id="user_city_work" name="user_city_work" placeholder="Digite a cidade em que trabalha" required />
+                <Select name="user_city_work" id="user_city_work" required>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Selecione a cidade" />
+                </SelectTrigger>
+                <SelectContent>
+                <SelectGroup>
+                  {municipios.map(municipio => (
+                    <SelectItem key={municipio} value={municipio}>
+                      {municipio}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+                </SelectContent>
+              </Select>
               </div>
               <div className="space-y-2">
                 <Label htmlFor="user_entity">Entidade / Prefeitura</Label>

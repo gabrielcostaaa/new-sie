@@ -39,18 +39,18 @@ export default function ListUsers({ users }: ListUsersProps) {
           </TableHeader>
           <TableBody>
             {currentUsers.map((user) => (
-              <TableRow key={user.id} className='cursor-pointer'>
+              <TableRow key={user.user_id} className='cursor-pointer'>
                 <TableCell className="flex items-center gap-x-4 font-medium">
                   <Avatar className="h-8 w-8">
-                    <AvatarImage src={user.avatar} />
-                    <AvatarFallback>{user.name ? user.name.charAt(0) : 'JD'}</AvatarFallback>
+                    <AvatarImage src={user.user_avatar} />
+                    <AvatarFallback>{user.user_name ? user.user_name.charAt(0) : 'JD'}</AvatarFallback>
                   </Avatar>
-                  <span>{user.name}</span>
+                  <span>{user.user_name}</span>
                 </TableCell>
-                <TableCell>{user.cpf}</TableCell>
+                <TableCell>{user.user_cpf}</TableCell>
                 <TableCell className="flex items-center gap-x-4">
-                  <img src={brasoes[user.municipio]} alt={`${user.municipio} brasão`} className="h-6 w-6" />
-                  <span>{user.municipio}</span>
+                  <img src={brasoes[user.user_city_work]} alt={`${user.user_city_work} brasão`} className="h-6 w-6" />
+                  <span>{user.user_city_work}</span>
                 </TableCell>
               </TableRow>
             ))}
