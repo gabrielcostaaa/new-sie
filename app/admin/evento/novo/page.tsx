@@ -1,3 +1,5 @@
+"use client"
+
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
@@ -10,9 +12,26 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectGroup, SelectI
 import municipios from "@/app/data/constants/municipios"
 import { CalendarFold } from 'lucide-react'
 import { createEvent } from "@/backend/evento/RepositorioEvento"
+import { useState } from 'react'
+import format from 'date-fns/format'
 
 
 export default function Component() {
+  const [selectedDate, setSelectedDate] = useState(new Date('2024-07-22T08:00:00'))
+  const [selectedTime1, setSelectedTime1] = useState('08:00')
+  const [selectedTime2, setSelectedTime2] = useState('08:00')
+
+  const handleDateChange = (date:any) => {
+    setSelectedDate(date);
+  }
+
+  const handleTimeChange1 = (event1:any) => {
+    setSelectedTime1(event1.target.value);
+  }
+  const handleTimeChange2 = (event2:any) => {
+    setSelectedTime2(event2.target.value);
+  }
+
   return (
     <Card className="w-full mx-auto h-full flex flex-col">
       <CardHeader>
@@ -66,29 +85,48 @@ export default function Component() {
               <Textarea id="event_description" name="event_description" rows={4} placeholder="Descreva seu evento" />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="start-date">Inicio e Fim do Evento</Label>
+              <Label htmlFor="start-date">Duração em Dias do Evento</Label>
               <Popover>
                 <PopoverTrigger asChild>
-                  <Button variant="outline" className="w-full justify-start font-normal">
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start font-normal"
+                    name="event_start_datetime"
+                    id="event_start_datetime"
+                  >
                     <CalendarFold className="mr-2 h-4 w-4" />
-                    22/07/2024, 08:00
+                    {format(selectedDate, 'dd/MM/yyyy, HH:mm')}
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar mode="single" defaultDate={new Date("2024-07-22T08:00:00")} />
+                  <Calendar
+                    mode="single"
+                    selected={selectedDate}
+                    onSelect={handleDateChange}
+                  />
                 </PopoverContent>
               </Popover>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button variant="outline" className="w-full justify-start font-normal">
-                    <CalendarFold className="mr-2 h-4 w-4" />
-                    30/07/2024, 17:30
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar mode="single" defaultDate={new Date("2024-07-22T17:30:00")} />
-                </PopoverContent>
-              </Popover>
+              <label htmlFor="time" className="block text-sm font-medium text-gray-700">
+                Hora Inicial e Final do Evento
+              </label>
+              <div className="grid grid-cols-2 gap-4">
+              <input
+                type="time"
+                id="time"
+                name="time"
+                value={selectedTime1}
+                onChange={handleTimeChange1}
+                className="mt-1 block w-full rounded-md border-b border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              />
+              <input
+                type="time"
+                id="time"
+                name="time"
+                value={selectedTime2}
+                onChange={handleTimeChange2}
+                className="mt-1 block w-full rounded-md border-b border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              />
+              </div>
             </div>
             <div className="grid gap-2">
                 <Label htmlFor="reg-start-date">Início e Término das Inscrições</Label>
