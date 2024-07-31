@@ -8,11 +8,12 @@ import { Calendar } from "@/components/ui/calendar"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectGroup, SelectItem } from "@/components/ui/select"
 import municipios from "@/app/data/constants/municipios"
+import { CalendarFold } from 'lucide-react'
 
 
 export default function Component() {
   return (
-    <Card className="w-full max-w-4xl mx-auto h-screen flex flex-col">
+    <Card className="w-full mx-auto h-full flex flex-col">
       <CardHeader>
         <CardTitle>Criar Evento</CardTitle>
         <CardDescription>Preencha os detalhes do seu evento.</CardDescription>
@@ -23,58 +24,18 @@ export default function Component() {
       </CardHeader>
       <CardContent className="flex-1 overflow-y-auto p-6">
         <form className="grid gap-6">
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-8 gap-6">
             <div className="grid gap-2">
               <Label htmlFor="image">Imagem do Evento</Label>
               <Input id="image" type="file" />
             </div>
-            <div className="grid gap-2">
+            <div className="grid col-span-2 gap-2">
               <Label htmlFor="name">Nome do Evento</Label>
               <Input id="name" placeholder="Digite o nome do evento" />
             </div>
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="description">Descrição do Evento</Label>
-            <Textarea id="description" rows={4} placeholder="Descreva seu evento" />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="partnerships">Parcerias</Label>
-            <Input id="partnerships" placeholder="Digite parcerias" />
-          </div>
-          <div className="grid grid-cols-2 gap-6">
-            <div className="grid gap-2">
-              <Label htmlFor="start-date">Data e Hora de Início</Label>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button variant="outline" className="w-full justify-start font-normal">
-                    <CalendarDaysIcon className="mr-2 h-4 w-4" />
-                    22/07/2024, 08:00
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar mode="single" defaultDate={new Date("2024-07-22T08:00:00")} />
-                </PopoverContent>
-              </Popover>
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="end-date">Data e Hora de Término</Label>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button variant="outline" className="w-full justify-start font-normal">
-                    <CalendarDaysIcon className="mr-2 h-4 w-4" />
-                    22/07/2024, 17:30
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar mode="single" defaultDate={new Date("2024-07-22T17:30:00")} />
-                </PopoverContent>
-              </Popover>
-            </div>
-          </div>
-          <div className="grid grid-cols-2 gap-6">
-            <div className="grid gap-2">
+            <div className="grid col-span-2 gap-2">
               <Label htmlFor="location">Local do Evento</Label>
-              <Input id="location" placeholder="Digite o local do evento" />
+              <Input id="location" placeholder="Digite o nome do local, rua, número e bairro" />
             </div>
             <div className="grid gap-2">
               <Label htmlFor="municipality">Município</Label>
@@ -93,19 +54,47 @@ export default function Component() {
                 </SelectContent>
               </Select>
             </div>
+            <div className="grid col-span-2 gap-2">
+            <Label htmlFor="partnerships">Parcerias</Label>
+            <Input id="partnerships" placeholder="Digite parcerias" />
           </div>
-          <div className="grid grid-cols-2 gap-6">
-            <div className="grid gap-2">
-              <Label htmlFor="max-registrants">Máximo de Inscritos</Label>
-              <Input id="max-registrants" type="number" placeholder="Digite o número máximo de inscritos" />
+          </div>
+          <div className="grid grid-cols-6 gap-6">
+            <div className="grid col-span-2 gap-2">
+              <Label htmlFor="description">Descrição do Evento</Label>
+              <Textarea id="description" rows={4} placeholder="Descreva seu evento" />
             </div>
-            <div className="grid grid-cols-2 gap-6">
-              <div className="grid gap-2">
-                <Label htmlFor="reg-start-date">Início das Inscrições</Label>
+            <div className="grid gap-2">
+              <Label htmlFor="start-date">Inicio e Fim do Evento</Label>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button variant="outline" className="w-full justify-start font-normal">
+                    <CalendarFold className="mr-2 h-4 w-4" />
+                    22/07/2024, 08:00
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar mode="single" defaultDate={new Date("2024-07-22T08:00:00")} />
+                </PopoverContent>
+              </Popover>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button variant="outline" className="w-full justify-start font-normal">
+                    <CalendarFold className="mr-2 h-4 w-4" />
+                    30/07/2024, 17:30
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar mode="single" defaultDate={new Date("2024-07-22T17:30:00")} />
+                </PopoverContent>
+              </Popover>
+            </div>
+            <div className="grid gap-2">
+                <Label htmlFor="reg-start-date">Início e Término das Inscrições</Label>
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button variant="outline" className="w-full justify-start font-normal">
-                      <CalendarDaysIcon className="mr-2 h-4 w-4" />
+                      <CalendarFold className="mr-2 h-4 w-4" />
                       22/07/2024, 08:00
                     </Button>
                   </PopoverTrigger>
@@ -113,13 +102,10 @@ export default function Component() {
                     <Calendar mode="single" defaultDate={new Date("2024-07-22T08:00:00")} />
                   </PopoverContent>
                 </Popover>
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="reg-end-date">Término das Inscrições</Label>
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button variant="outline" className="w-full justify-start font-normal">
-                      <CalendarDaysIcon className="mr-2 h-4 w-4" />
+                      <CalendarFold className="mr-2 h-4 w-4" />
                       22/07/2024, 17:30
                     </Button>
                   </PopoverTrigger>
@@ -128,65 +114,72 @@ export default function Component() {
                   </PopoverContent>
                 </Popover>
               </div>
+              <div className="grid gap-2">
+              <Label htmlFor="max-registrants">Número Máximo de Participantess</Label>
+              <Input id="max-registrants" type="number" placeholder="Digite o número máximo de inscritos" />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="project-number">Número do Projeto (opcional)</Label>
+                <Input id="project-number" placeholder="Digite o número do projeto" />
+              </div>
+          </div>
+          <div className="grid grid-cols-6 gap-6">
+            <div className="grid col-span-2 gap-2">
+              <Label htmlFor="attachment-info-1">Informações Anexo 1</Label>
+              <Textarea id="attachment-info-1" rows={4} placeholder="Digite as informações do anexo" />
+            </div>
+            <div className="grid col-span-2 gap-2">
+              <Label htmlFor="attachment-info-2">Informações Anexo 2</Label>
+              <Textarea id="attachment-info-2" rows={4} placeholder="Digite as informações do anexo" />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="guidelines">Anexar Orientações</Label>
+              <Input id="guidelines" type="file" />
             </div>
           </div>
-          <div className="grid gap-2">
-            <Label htmlFor="project-number">Número do Projeto (opcional)</Label>
-            <Input id="project-number" placeholder="Digite o número do projeto" />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="guidelines">Anexar Orientações</Label>
-            <Input id="guidelines" type="file" />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="attachment-info-1">Informações Anexo 1</Label>
-            <Textarea id="attachment-info-1" rows={4} placeholder="Digite as informações do anexo" />
-          </div>
+          <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2">
+              <Checkbox id="certificate" />
+              <label
+                htmlFor="certificate"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Emitirá Declaração!
+              </label>
+            </div>
 
-          <div className="grid gap-4">
-            <Checkbox name="certificate" id="certificate">
-              Emitir Certificado!
-            </Checkbox>
-            <Checkbox name="participant-choose" id="participant-choose">
-              Participante Escolherá Conteúdo!
-            </Checkbox>
-            <Checkbox name="segment-choice" id="segment-choice">
-              Opção de Segmento Disponível!
-            </Checkbox>
-            <Checkbox name="mandatory-docs" id="mandatory-docs">
-              Documentos Obrigatórios para Anexar!
-            </Checkbox>
+            <div className="flex items-center space-x-2">
+              <Checkbox id="conteudo" />
+              <label
+                htmlFor="conteudo"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Participante escolherá o conteúdo!
+              </label>
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <Checkbox id="segment" />
+              <label
+                htmlFor="segment"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Haverá escolha de segmento!
+              </label>
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <Checkbox id="anexo" />
+              <label
+                htmlFor="anexo"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Documentos Obrigatórios para Anexar!
+              </label>
+            </div>
           </div>
         </form>
       </CardContent>
     </Card>
-  )
-}
-
-function CalendarDaysIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M8 2v4" />
-      <path d="M16 2v4" />
-      <rect width="18" height="18" x="3" y="4" rx="2" />
-      <path d="M3 10h18" />
-      <path d="M8 14h.01" />
-      <path d="M12 14h.01" />
-      <path d="M16 14h.01" />
-      <path d="M8 18h.01" />
-      <path d="M12 18h.01" />
-      <path d="M16 18h.01" />
-    </svg>
   )
 }
