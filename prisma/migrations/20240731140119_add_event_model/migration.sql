@@ -1,0 +1,32 @@
+-- CreateTable
+CREATE TABLE `Event` (
+    `event_id` INTEGER NOT NULL AUTO_INCREMENT,
+    `event_title` VARCHAR(200) NOT NULL,
+    `event_description` LONGTEXT NULL,
+    `event_partnership` VARCHAR(500) NULL,
+    `event_max_registrations` INTEGER NOT NULL,
+    `event_num_registrations` INTEGER NULL,
+    `event_registration_start_datetime` DATETIME(3) NOT NULL,
+    `event_registration_end_datetime` DATETIME(3) NOT NULL,
+    `event_start_datetime` DATETIME(3) NOT NULL,
+    `event_end_datetime` DATETIME(3) NOT NULL,
+    `event_location` VARCHAR(100) NOT NULL,
+    `event_city` VARCHAR(100) NOT NULL,
+    `event_project_number` VARCHAR(20) NULL,
+    `event_certificate_start_number` INTEGER NULL,
+    `event_certificate_end_number` INTEGER NULL,
+    `event_image` LONGTEXT NULL,
+    `user_id` INTEGER NOT NULL,
+    `event_declaration` INTEGER NOT NULL DEFAULT 0,
+    `event_document_attachment` INTEGER NULL,
+    `event_content_choice` INTEGER NULL,
+    `event_segment` INTEGER NULL,
+    `event_header_image` LONGTEXT NULL,
+    `event_signature_image` LONGTEXT NULL,
+    `document_orientations_path` LONGTEXT NULL,
+    `document_orientations_description_1` LONGTEXT NULL,
+    `document_orientations_description_2` LONGTEXT NULL,
+    `event_conclusion` INTEGER NOT NULL,
+
+    PRIMARY KEY (`event_id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

@@ -9,6 +9,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectGroup, SelectItem } from "@/components/ui/select"
 import municipios from "@/app/data/constants/municipios"
 import { CalendarFold } from 'lucide-react'
+import { createEvent } from "@/backend/evento/RepositorioEvento"
 
 
 export default function Component() {
@@ -23,23 +24,23 @@ export default function Component() {
         </div>
       </CardHeader>
       <CardContent className="flex-1 overflow-y-auto p-6">
-        <form className="grid gap-6">
+        <form action={createEvent} className="grid gap-6">
           <div className="grid grid-cols-8 gap-6">
             <div className="grid gap-2">
-              <Label htmlFor="image">Imagem do Evento</Label>
-              <Input id="image" type="file" />
+              <Label htmlFor="event_image">Imagem do Evento</Label>
+              <Input id="event_image" name="event_image" type="file" />
             </div>
             <div className="grid col-span-2 gap-2">
-              <Label htmlFor="name">Nome do Evento</Label>
-              <Input id="name" placeholder="Digite o nome do evento" />
+              <Label htmlFor="event_title">Nome do Evento</Label>
+              <Input id="event_title" name="event_title" placeholder="Digite o nome do evento" />
             </div>
             <div className="grid col-span-2 gap-2">
-              <Label htmlFor="location">Local do Evento</Label>
-              <Input id="location" placeholder="Digite o nome do local, rua, número e bairro" />
+              <Label htmlFor="event_location">Local do Evento</Label>
+              <Input id="event_location" name="event_location" placeholder="Digite o nome do local, rua, número e bairro" />
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="municipality">Município</Label>
-              <Select>
+              <Label htmlFor="event_city">Município</Label>
+              <Select id="event_city" name="event_city">
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Selecione a cidade" />
                 </SelectTrigger>
@@ -55,14 +56,14 @@ export default function Component() {
               </Select>
             </div>
             <div className="grid col-span-2 gap-2">
-            <Label htmlFor="partnerships">Parcerias</Label>
-            <Input id="partnerships" placeholder="Digite parcerias" />
+            <Label htmlFor="event_partnership">Parcerias</Label>
+            <Input id="event_partnership" name="event_partnership" placeholder="Digite parcerias" />
           </div>
           </div>
           <div className="grid grid-cols-6 gap-6">
             <div className="grid col-span-2 gap-2">
-              <Label htmlFor="description">Descrição do Evento</Label>
-              <Textarea id="description" rows={4} placeholder="Descreva seu evento" />
+              <Label htmlFor="event_description">Descrição do Evento</Label>
+              <Textarea id="event_description" name="event_description" rows={4} placeholder="Descreva seu evento" />
             </div>
             <div className="grid gap-2">
               <Label htmlFor="start-date">Inicio e Fim do Evento</Label>
