@@ -164,7 +164,7 @@ export default function Component() {
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4">
-          <div className="col-span-1">
+          <div className="col-span-1 gap-2">
             <label
               htmlFor="reg_start_date"
               className="block text-sm font-medium text-gray-700"
@@ -176,14 +176,18 @@ export default function Component() {
                 <Button
                   variant="outline"
                   className="w-full justify-start font-normal"
-                  id="reg_start_date"
+                  id="event_start_date"
                 >
                   <CalendarFold className="mr-2 h-4 w-4" />
-                  {format(new Date('2024-07-22T08:00:00'), 'dd/MM/yyyy, HH:mm')}
+                  {format(selectedDate, 'dd/MM/yyyy')}
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0" align="start">
-                <Calendar mode="single" selected={new Date('2024-07-22T08:00:00')} />
+                <Calendar
+                  mode="single"
+                  selected={selectedDate}
+                  onSelect={handleDateChange}
+                />
               </PopoverContent>
             </Popover>
           </div>
@@ -199,25 +203,61 @@ export default function Component() {
                 <Button
                   variant="outline"
                   className="w-full justify-start font-normal"
-                  id="reg_end_date"
+                  id="event_start_date"
                 >
                   <CalendarFold className="mr-2 h-4 w-4" />
-                  {format(new Date('2024-07-22T17:30:00'), 'dd/MM/yyyy, HH:mm')}
+                  {format(selectedDate, 'dd/MM/yyyy')}
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0" align="start">
-                <Calendar mode="single" selected={new Date('2024-07-22T17:30:00')} />
+                <Calendar
+                  mode="single"
+                  selected={selectedDate}
+                  onSelect={handleDateChange}
+                />
               </PopoverContent>
             </Popover>
+          </div>  
+          <div className="grid grid-cols-2 gap-4 col-span-2">
+            <div className="col-span-1">
+              <label
+                htmlFor="event_start_time"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Hora Inicial do Evento
+              </label>
+              <input
+                type="time"
+                id="event_start_time"
+                name="event_start_time"
+                value={selectedTime1}
+                onChange={handleTimeChange1}
+                className="mt-1 block w-full rounded-md border-b border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              />
+            </div>
+            <div className="col-span-1">
+              <label
+                htmlFor="event_end_time"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Hora Final do Evento
+              </label>
+              <input
+                type="time"
+                id="event_end_time"
+                name="event_end_time"
+                value={selectedTime2}
+                onChange={handleTimeChange2}
+                className="mt-1 block w-full rounded-md border-b border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              />
+            </div>
           </div>
-        </div>
+
+          </div>
+        
         <div className="grid gap-2">
           <Label htmlFor="max-registrants">Número Máximo de Participantes</Label>
           <Input id="max-registrants" name="max-registrants" type="number" placeholder="Digite o número máximo de inscritos" />
-        </div>
-        <div className="grid gap-2">
-          <Label htmlFor="project-number">Número do Projeto (opcional)</Label>
-          <Input id="project-number" name="project-number" placeholder="Digite o número do projeto" />
         </div>
       </div>
       <div className="grid grid-cols-6 gap-6">
@@ -232,6 +272,10 @@ export default function Component() {
         <div className="grid gap-2">
           <Label htmlFor="guidelines">Anexar Orientações</Label>
           <Input id="guidelines" name="guidelines" type="file" />
+        </div>
+        <div className="grid gap-2">
+          <Label htmlFor="project-number">Número do Projeto (opcional)</Label>
+          <Input id="project-number" name="project-number" placeholder="Digite o número do projeto" />
         </div>
       </div>
       <div className="flex items-center space-x-4">
