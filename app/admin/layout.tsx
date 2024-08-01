@@ -1,7 +1,7 @@
 import React from 'react';
 import Sidebar, { SidebarItem } from '@/components/Sidebar';
 import Navbar from '@/components/Navbar';
-import { LayoutDashboard, Presentation, MicVocal, UsersRound, ClipboardList, Ticket, LogOut } from 'lucide-react'
+import { LayoutDashboard, Presentation, MicVocal, UsersRound, ClipboardList, Ticket, Sparkles, LifeBuoy, LogOut } from 'lucide-react'
 import { DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
 import { getServerSession } from "next-auth"
 import { redirect } from "next/navigation";
@@ -41,17 +41,26 @@ export default async function  AdminLayout({ children }) {
             alert
           />
           <SidebarItem // ESTE ITEM APARECE SOMENTE PARA O ADMINISTRADOR
+            icon={<Ticket size={30}/>}
+            text="Ingressos"
+            caminho="/admin/ingressos"
+          />
+          <SidebarItem // ESTE ITEM APARECE SOMENTE PARA O ADMINISTRADOR
             icon={<ClipboardList size={30}/>}
             text="Relatórios"
             caminho="/admin/relatorio"
           />
           <SidebarItem // ESTE ITEM APARECE SOMENTE PARA O ADMINISTRADOR
-            icon={<Ticket size={30}/>}
-            text="Ingressos"
-            caminho="/admin/ingressos"
+            icon={<Sparkles size={30}/>}
+            text="Avaliações"
+            caminho="/admin/avaliacoes"
           />
           <DropdownMenuSeparator />
-
+          <SidebarItem // ESTE ITEM APARECE SOMENTE PARA O ADMINISTRADOR
+            icon={<LifeBuoy size={30}/>}
+            text="Suporte"
+            caminho="/admin/suporte"
+          />
           <SidebarItem
             icon={<LogOut size={30}/>}
             text="Sair"
