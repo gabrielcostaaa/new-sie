@@ -11,15 +11,15 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectGroup, SelectItem } from "@/components/ui/select"
 import municipios from "@/app/data/constants/municipios"
 import { CalendarFold } from 'lucide-react'
-import { createEvent } from "@/backend/evento/RepositorioEvento"
 import { useState } from 'react'
 import format from 'date-fns/format'
+import { createEvent } from "@/backend/evento/RepositorioEvento"
 
 export default function Component() {
-  const [selectedDate0, setSelectedDate0] = useState(new Date('2024-07-22T08:00:00'))
-  const [selectedDate1, setSelectedDate1] = useState(new Date('2024-07-22T08:00:00'))
-  const [selectedDate2, setSelectedDate2] = useState(new Date('2024-07-22T08:00:00'))
-  const [selectedDate3, setSelectedDate3] = useState(new Date('2024-07-22T08:00:00'))
+  const [selectedDate0, setSelectedDate0] = useState(new Date())
+  const [selectedDate1, setSelectedDate1] = useState(new Date())
+  const [selectedDate2, setSelectedDate2] = useState(new Date())
+  const [selectedDate3, setSelectedDate3] = useState(new Date())
   const [selectedTime1, setSelectedTime1] = useState('08:00')
   const [selectedTime2, setSelectedTime2] = useState('08:00')
   const [selectedTime3, setSelectedTime3] = useState('08:00')
@@ -59,6 +59,7 @@ export default function Component() {
 
   return (
 <Card className="w-full mx-auto h-full flex flex-col">
+  <form action={createEvent}>
   <CardHeader>
     <CardTitle>Criar Evento</CardTitle>
     <CardDescription>Preencha os detalhes do seu evento.</CardDescription>
@@ -67,8 +68,7 @@ export default function Component() {
       <Button type="submit">Criar Evento</Button>
     </div>
   </CardHeader>
-  <CardContent className="flex-1 overflow-y-auto p-6">
-    <form action={createEvent} className="grid gap-6">
+  <CardContent className="flex-1 overflow-y-auto p-6 grid gap-6">
       <div className="grid grid-cols-8 gap-6">
         <div className="grid gap-2">
           <Label htmlFor="event_image">Imagem do Evento</Label>
@@ -132,6 +132,11 @@ export default function Component() {
                 />
               </PopoverContent>
             </Popover>
+            <input
+              type="hidden"
+              name="event_start_date"
+              value={selectedDate0 ? format(selectedDate0, 'dd/MM/yyyy') : ''}
+            />
           </div>
           <div className="grid col-span-1 gap-2">
             <Label htmlFor="event_end_date">Data Final do Evento</Label>
@@ -155,6 +160,16 @@ export default function Component() {
                 />
               </PopoverContent>
             </Popover>
+            <input
+              type="hidden"
+              name="event_end_date"
+              value={selectedDate1 ? format(selectedDate1, 'dd/MM/yyyy') : ''}
+            />
+            <input
+              type="hidden"
+              name="event_end_date"
+              value={selectedDate1 ? format(selectedDate1, 'dd/MM/yyyy') : ''}
+            />
           </div>
           <div className="grid grid-cols-2 gap-2">
             <div className="col-span-1">
@@ -219,10 +234,15 @@ export default function Component() {
                 />
               </PopoverContent>
             </Popover>
+            <input
+              type="hidden"
+              name="event_registration_start_date"
+              value={selectedDate2 ? format(selectedDate2, 'dd/MM/yyyy') : ''}
+            />
           </div>
           <div className="col-span-2 gap-2">
             <label
-              htmlFor="reg_end_date"
+              htmlFor="event_registration_end_date"
               className="block text-sm font-medium text-gray-700"
             >
               Término das Inscrições
@@ -232,7 +252,8 @@ export default function Component() {
                 <Button
                   variant="outline"
                   className="w-full justify-start font-normal"
-                  id="event_start_date"
+                  id="event_registration_end_date"
+                  name="event_registration_end_date"
                 >
                   <CalendarFold className="mr-2 h-4 w-4" />
                   {format(selectedDate3, 'dd/MM/yyyy')}
@@ -246,19 +267,20 @@ export default function Component() {
                 />
               </PopoverContent>
             </Popover>
+            
           </div>  
           <div className="grid grid-cols-2 gap-4 col-span-2">
             <div className="col-span-1">
               <label
-                htmlFor="event_start_time"
+                htmlFor="event_registration_start_time"
                 className="block text-sm font-medium text-gray-700"
               >
                 Hora Inicial da Inscrição
               </label>
               <input
                 type="time"
-                id="event_start_time"
-                name="event_start_time"
+                id="event_registration_start_time"
+                name="event_registration_start_time"
                 value={selectedTime3}
                 onChange={handleTimeChange3}
                 className="mt-1 block w-full rounded-md border-b border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
@@ -266,7 +288,7 @@ export default function Component() {
             </div>
             <div className="col-span-1">
               <label
-                htmlFor="event_end_time"
+                htmlFor="event_registration_end_time"
                 className="block text-sm font-medium text-gray-700"
               >
                 Hora Final da Inscrição
@@ -274,8 +296,8 @@ export default function Component() {
               <input
                 type="time"
 
-                id="event_end_time"
-                name="event_end_time"
+                id="event_registration_end_time"
+                name="event_registration_end_time"
                 value={selectedTime4}
                 onChange={handleTimeChange4}
                 className="mt-1 block w-full rounded-md border-b border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
@@ -286,8 +308,8 @@ export default function Component() {
           </div>
         
         <div className="grid gap-2">
-          <Label htmlFor="max-registrants">Número Máximo de Participantes</Label>
-          <Input id="max-registrants" name="max-registrants" type="number" placeholder="Digite o número máximo de inscritos" />
+          <Label htmlFor="event_max_registrations">Número Máximo de Participantes</Label>
+          <Input id="event_max_registrations" name="event_max_registrations" type="number" placeholder="Digite o número máximo de inscritos" />
         </div>
       </div>
       <div className="grid grid-cols-6 gap-6">
@@ -349,8 +371,8 @@ export default function Component() {
             </label>
           </div>
         </div>
-      </form>
     </CardContent>
+  </form>
   </Card>
   )
 }

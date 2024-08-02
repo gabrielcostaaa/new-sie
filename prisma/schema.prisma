@@ -56,32 +56,37 @@ model UserPermission {
 }
 
 model Event {
-  event_id                Int      @id @default(autoincrement())
-  event_title             String  @db.VarChar(200)  //O Título do Evento, não pode ser NULL
-  event_description       String?  @db.LongText     //A Descrição nao é obrigatória
-  event_partnership       String?  @db.VarChar(500) //Parcerias também não são obrigatórias
-  event_max_registrations Int                       //Limite de participantes no evento, sendo obrigatório seu registro e alterável até o inicio do evento
-  event_num_registrations Int?                      //Contador de quantos participantes vão participar, a cada inscrição feita ou cancelada ele atualiza, inicialmente podendo ser NULL
-  event_registration_start_datetime   DateTime         //Dia e hora de Inicio para inscrições do evento, obrigatório
-  event_registration_end_datetime     DateTime         //Obrigatório prencher a data e hora final de inscrição, podendo também alterar, essa data nao pode ser maior que a data de inicio        
-  event_start_datetime        DateTime                 //Data e hora de inicio do evento, obrigatório
-  event_end_datetime          DateTime                 //Data e hora de encerramento do evento, obrigatório
-  event_location          String  @db.VarChar(100) //Obrigatório a Localização do evento
-  event_city              String  @db.VarChar(100) //Municipio onde ira ocorrer o evento
-  event_project_number    String?  @db.VarChar(20) //Não é obrigatório
-  event_certificate_start_number Int?              //Se emitir certificado, é para gerar um intervalo de numero de certificado (para ser unico a cada usuario), gerado assim que o evento é concluido
-  event_certificate_end_number   Int?              //Número final do intervalo de certificado
-  event_image             String?  @db.LongText    //Caminho para imagem do evento
-  user_id                 Int                      //Usuário Administrador do sistema que criou o evento, obrigatório
-  event_declaration       Int      @default(0)     //Um boleano, quando 0 o evento emite Certificado, quando 1 o evento emite Declaração, obrigatório
-  event_document_attachment Int?                   //Um boleano checkbox, Documentos Obrigatórios para Anexar
-  event_content_choice    Int?                     //Um boleano checkbox, Participante pode escolher evento
-  event_segment           Int?                     //Um boleano checkbox, Haverá escolha de segmentos, podendo destinar a qual publico é o evento
-  event_header_image      String?  @db.LongText    //Para anexar cabeçalho ao certificado, estudar aplicabilidade
-  event_signature_image   String?  @db.LongText    //Para anexar assinatura ao certificado, estudar aplicabilidade
-  document_orientations_path           String?  @db.LongText    //Anexo de Orientações
-  document_orientations_description_1        String?  @db.LongText    //Descrição 1 de orientações
-  document_orientations_description_2      String?  @db.LongText    //Descrição 2 de orientações
-  event_conclusion        Int                     //Um boelando, se 0 o evento nao foi concluido, se 1 o evento foi concluido, ja fica em 0 quando cria
+  event_id                      Int      @id @default(autoincrement())
+  event_title                   String   @db.VarChar(200)  // O Título do Evento, não pode ser NULL
+  event_description             String?  @db.LongText      // A Descrição não é obrigatória
+  event_partnership             String?  @db.VarChar(500)  // Parcerias também não são obrigatórias
+  event_max_registrations       Int                       // Limite de participantes no evento, sendo obrigatório seu registro e alterável até o início do evento
+  event_num_registrations       Int?                      // Contador de quantos participantes vão participar, a cada inscrição feita ou cancelada ele atualiza, inicialmente podendo ser NULL
+  event_registration_start_date String                       // Dia de início para inscrições do evento, obrigatório
+  event_registration_start_time String                       // Hora de início para inscrições do evento, obrigatório
+  event_registration_end_date   String                       // Data final de inscrição, obrigatório
+  event_registration_end_time   String                       // Hora final de inscrição, obrigatório
+  event_start_date              String                       // Data de início do evento, obrigatório
+  event_start_time              String                       // Hora de início do evento, obrigatório
+  event_end_date                String                       // Data de encerramento do evento, obrigatório
+  event_end_time                String                       // Hora de encerramento do evento, obrigatório
+  event_location                String   @db.VarChar(100) // Obrigatório a Localização do evento
+  event_city                    String   @db.VarChar(100) // Município onde irá ocorrer o evento
+  event_project_number          String?  @db.VarChar(20)  // Não é obrigatório
+  event_certificate_start_number Int?                     // Se emitir certificado, é para gerar um intervalo de número de certificado (para ser único a cada usuário), gerado assim que o evento é concluído
+  event_certificate_end_number   Int?                     // Número final do intervalo de certificado
+  event_image                   String?  @db.LongText     // Caminho para imagem do evento
+  user_id                       Int                       // Usuário Administrador do sistema que criou o evento, obrigatório
+  event_declaration             Int      @default(0)      // Um booleano, quando 0 o evento emite Certificado, quando 1 o evento emite Declaração, obrigatório
+  event_document_attachment     Int?                      // Um booleano checkbox, Documentos Obrigatórios para Anexar
+  event_content_choice          Int?                      // Um booleano checkbox, Participante pode escolher evento
+  event_segment                 Int?                      // Um booleano checkbox, Haverá escolha de segmentos, podendo destinar a qual público é o evento
+  event_header_image            String?  @db.LongText     // Para anexar cabeçalho ao certificado, estudar aplicabilidade
+  event_signature_image         String?  @db.LongText     // Para anexar assinatura ao certificado, estudar aplicabilidade
+  document_orientations_path    String?  @db.LongText     // Anexo de Orientações
+  document_orientations_description_1 String?  @db.LongText // Descrição 1 de orientações
+  document_orientations_description_2 String?  @db.LongText // Descrição 2 de orientações
+  event_conclusion              Int                       // Um booleano, se 0 o evento não foi concluído, se 1 o evento foi concluído, já fica em 0 quando cria
 }
+
 
