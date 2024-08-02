@@ -16,19 +16,45 @@ import { useState } from 'react'
 import format from 'date-fns/format'
 
 export default function Component() {
-  const [selectedDate, setSelectedDate] = useState(new Date('2024-07-22T08:00:00'))
+  const [selectedDate0, setSelectedDate0] = useState(new Date('2024-07-22T08:00:00'))
+  const [selectedDate1, setSelectedDate1] = useState(new Date('2024-07-22T08:00:00'))
+  const [selectedDate2, setSelectedDate2] = useState(new Date('2024-07-22T08:00:00'))
+  const [selectedDate3, setSelectedDate3] = useState(new Date('2024-07-22T08:00:00'))
   const [selectedTime1, setSelectedTime1] = useState('08:00')
   const [selectedTime2, setSelectedTime2] = useState('08:00')
+  const [selectedTime3, setSelectedTime3] = useState('08:00')
+  const [selectedTime4, setSelectedTime4] = useState('08:00')
 
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
+  const handleDateChange0 = (date) => {
+    setSelectedDate0(date);
+  }
+
+  const handleDateChange1 = (date) => {
+    setSelectedDate1(date);
+  }
+
+  const handleDateChange2 = (date) => {
+    setSelectedDate2(date);
+  }
+  
+  const handleDateChange3 = (date) => {
+    setSelectedDate3(date);
   }
 
   const handleTimeChange1 = (event) => {
     setSelectedTime1(event.target.value);
   }
+
   const handleTimeChange2 = (event) => {
     setSelectedTime2(event.target.value);
+  }
+
+  const handleTimeChange3 = (event) => {
+    setSelectedTime3(event.target.value);
+  }
+
+  const handleTimeChange4 = (event) => {
+    setSelectedTime4(event.target.value);
   }
 
   return (
@@ -83,7 +109,7 @@ export default function Component() {
           <Label htmlFor="event_description">Descrição do Evento</Label>
           <Textarea id="event_description" name="event_description" rows={4} placeholder="Descreva seu evento" />
         </div>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid gap-2">
           <div className="grid col-span-1 gap-2">
             <Label htmlFor="event_start_date">Data Inicial do Evento</Label>
             <Popover>
@@ -92,16 +118,17 @@ export default function Component() {
                   variant="outline"
                   className="w-full justify-start font-normal"
                   id="event_start_date"
+                  name="event_start_date"
                 >
                   <CalendarFold className="mr-2 h-4 w-4" />
-                  {format(selectedDate, 'dd/MM/yyyy')}
+                  {format(selectedDate0, 'dd/MM/yyyy')}
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0" align="start">
                 <Calendar
                   mode="single"
-                  selected={selectedDate}
-                  onSelect={handleDateChange}
+                  selected={selectedDate0}
+                  onSelect={handleDateChange0}
                 />
               </PopoverContent>
             </Popover>
@@ -114,21 +141,22 @@ export default function Component() {
                   variant="outline"
                   className="w-full justify-start font-normal"
                   id="event_end_date"
+                  name="event_end_date"
                 >
                   <CalendarFold className="mr-2 h-4 w-4" />
-                  {format(selectedDate, 'dd/MM/yyyy')}
+                  {format(selectedDate1, 'dd/MM/yyyy')}
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0" align="start">
                 <Calendar
                   mode="single"
-                  selected={selectedDate}
-                  onSelect={handleDateChange}
+                  selected={selectedDate1}
+                  onSelect={handleDateChange1}
                 />
               </PopoverContent>
             </Popover>
           </div>
-          <div className="grid grid-cols-2 gap-4 col-span-2">
+          <div className="grid grid-cols-2 gap-2">
             <div className="col-span-1">
               <label
                 htmlFor="event_start_time"
@@ -163,10 +191,10 @@ export default function Component() {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="col-span-1 gap-2">
+        <div className="grid grid-cols-2 gap-2">
+          <div className="col-span-2 gap-2">
             <label
-              htmlFor="reg_start_date"
+              htmlFor="event_registration_start_date"
               className="block text-sm font-medium text-gray-700"
             >
               Início das Inscrições
@@ -176,22 +204,23 @@ export default function Component() {
                 <Button
                   variant="outline"
                   className="w-full justify-start font-normal"
-                  id="event_start_date"
+                  id="event_registration_start_date"
+                  name="event_registration_start_date"
                 >
                   <CalendarFold className="mr-2 h-4 w-4" />
-                  {format(selectedDate, 'dd/MM/yyyy')}
+                  {format(selectedDate2, 'dd/MM/yyyy')}
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0" align="start">
                 <Calendar
                   mode="single"
-                  selected={selectedDate}
-                  onSelect={handleDateChange}
+                  selected={selectedDate2}
+                  onSelect={handleDateChange2}
                 />
               </PopoverContent>
             </Popover>
           </div>
-          <div className="col-span-1">
+          <div className="col-span-2 gap-2">
             <label
               htmlFor="reg_end_date"
               className="block text-sm font-medium text-gray-700"
@@ -206,14 +235,14 @@ export default function Component() {
                   id="event_start_date"
                 >
                   <CalendarFold className="mr-2 h-4 w-4" />
-                  {format(selectedDate, 'dd/MM/yyyy')}
+                  {format(selectedDate3, 'dd/MM/yyyy')}
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0" align="start">
                 <Calendar
                   mode="single"
-                  selected={selectedDate}
-                  onSelect={handleDateChange}
+                  selected={selectedDate3}
+                  onSelect={handleDateChange3}
                 />
               </PopoverContent>
             </Popover>
@@ -224,14 +253,14 @@ export default function Component() {
                 htmlFor="event_start_time"
                 className="block text-sm font-medium text-gray-700"
               >
-                Hora Inicial do Evento
+                Hora Inicial da Inscrição
               </label>
               <input
                 type="time"
                 id="event_start_time"
                 name="event_start_time"
-                value={selectedTime1}
-                onChange={handleTimeChange1}
+                value={selectedTime3}
+                onChange={handleTimeChange3}
                 className="mt-1 block w-full rounded-md border-b border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               />
             </div>
@@ -240,14 +269,15 @@ export default function Component() {
                 htmlFor="event_end_time"
                 className="block text-sm font-medium text-gray-700"
               >
-                Hora Final do Evento
+                Hora Final da Inscrição
               </label>
               <input
                 type="time"
+
                 id="event_end_time"
                 name="event_end_time"
-                value={selectedTime2}
-                onChange={handleTimeChange2}
+                value={selectedTime4}
+                onChange={handleTimeChange4}
                 className="mt-1 block w-full rounded-md border-b border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               />
             </div>

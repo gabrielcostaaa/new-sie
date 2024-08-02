@@ -11,10 +11,14 @@ export async function createEvent(formData: FormData) {
         const event_partnership = formData.get('event_partnership') as string | null;
         const event_max_registrations = Number(formData.get('event_max_registrations'));
         const event_num_registrations = formData.get('event_num_registrations') ? Number(formData.get('event_num_registrations')) : null;
-        const event_registration_start_datetime = formData.get('event_registration_start_datetime') ? new Date(formData.get('event_registration_start_datetime') as string) : null;
-        const event_registration_end_datetime = formData.get('event_registration_end_datetime') ? new Date(formData.get('event_registration_end_datetime') as string) : null;
-        const event_start_datetime = formData.get('event_start_datetime') ? new Date(formData.get('event_start_datetime') as string) : null;
-        const event_end_datetime = formData.get('event_end_datetime') ? new Date(formData.get('event_end_datetime') as string) : null;
+        const event_registration_start_date = formData.get('event_registration_start_date') ? new Date(formData.get('event_registration_start_date') as string) : null;
+        const event_registration_end_date = formData.get('event_registration_end_date') ? new Date(formData.get('event_registration_end_date') as string) : null;
+        const event_registration_start_date = null;
+        const event_registration_end_time = null;
+        const event_start_date = formData.get('event_start_date') ? new Date(formData.get('event_start_date') as string) : null;
+        const event_end_date = formData.get('event_end_date') ? new Date(formData.get('event_end_date') as string) : null;
+        const event_start_time = null;
+        const event_end_time = null;
         const event_location = formData.get('event_location') as string;
         const event_city = formData.get('event_city') as string;
         const event_project_number = formData.get('event_project_number') as string | null;
@@ -38,8 +42,8 @@ export async function createEvent(formData: FormData) {
                 event_num_registrations,
                 event_registration_start_datetime,
                 event_registration_end_datetime,
-                event_start_datetime,
-                event_end_datetime,
+                event_start_date,
+                event_end_date,
                 event_location,
                 event_city,
                 event_project_number,
