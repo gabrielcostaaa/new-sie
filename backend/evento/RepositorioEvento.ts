@@ -77,3 +77,13 @@ export async function createEvent(formData: FormData) {
         console.error("Erro ao criar o evento:", error);
     }
 }
+
+export async function getAllEvents() {
+    try {
+      const events = await prisma.event.findMany(); // Certifique-se de que está usando o modelo correto
+      return events;
+    } catch (error) {
+      console.error("Erro ao obter eventos:", error);
+      throw error;
+    }
+  }

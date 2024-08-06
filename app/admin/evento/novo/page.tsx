@@ -267,7 +267,11 @@ export default function Component() {
                 />
               </PopoverContent>
             </Popover>
-            
+            <input
+              type="hidden"
+              name="event_registration_end_date"
+              value={selectedDate3 ? format(selectedDate3, 'dd/MM/yyyy') : ''}
+            />
           </div>  
           <div className="grid grid-cols-2 gap-4 col-span-2">
             <div className="col-span-1">
