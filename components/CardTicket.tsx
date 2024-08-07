@@ -1,18 +1,25 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Calendar, Clock, MapPin } from 'lucide-react'
+import { Calendar, Clock, MapPin, Award, Album } from 'lucide-react'
 import { ListCardTicketsProps } from "@/types"
 import brasoes from "@/app/data/constants/brasoes"
 import MyQRCode from '@/components/MyQRCode';
 
 
+
 export default function CardTicket( { tickets }: ListCardTicketsProps) {
   return (
 <Card className="w-full max-w-md">
-  <img src={tickets.imageEvent} alt="Event Photo" className="rounded-t-lg object-cover aspect-[2/1]" />
+  <div className="relative">
+    <img src={tickets.imageEvent} alt="Event Photo" className="rounded-t-lg object-cover aspect-[2/1]" />
+    <div className="absolute top-4 left-4 inline-flex items-center gap-2 px-2 py-1 rounded-full bg-municipios-gradient text-primary-foreground text-xs font-medium">
+        <img src={brasoes[tickets.municipioEvent]} className="h-6 w-6" />
+        {tickets.municipioEvent}
+    </div>
+  </div>
   <CardContent className="p-6 flex flex-col gap-4">
     <div className="space-y-2">
-      <h3 className="text-xl font-semibold">{tickets.nameEvent}</h3>
+      <h3 className="text-xl font-semibold truncate">{tickets.nameEvent}</h3>
       <div className="flex items-center gap-2 text-muted-foreground">
         <Calendar className="w-5 h-5" />
         <span>{tickets.dateEvent}</span>
@@ -21,8 +28,7 @@ export default function CardTicket( { tickets }: ListCardTicketsProps) {
       </div>
       <div className="flex items-center gap-2 text-muted-foreground">
         <MapPin className="w-5 h-5" />
-        <span>{tickets.localEvent}</span>
-        <img src={brasoes[tickets.municipioEvent]} className="h-6 w-6" />
+        <span className="truncate">{tickets.localEvent}</span>
       </div>
     </div>
     <div className="flex justify-center mb-6 mt-6">

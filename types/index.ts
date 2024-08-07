@@ -37,6 +37,7 @@ export interface Tickets {
     imageEvent: string;
     municipioEvent: string;
     qrValue: string;
+    etiqueta: boolean;
 }
 
 export interface ListCardTicketsProps {

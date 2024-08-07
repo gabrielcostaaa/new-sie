@@ -10,7 +10,7 @@ export async function createEvent(formData: FormData) {
         const event_description = formData.get('event_description') as string | null;
         const event_partnership = formData.get('event_partnership') as string | null;
         const event_max_registrations = Number(formData.get('event_max_registrations'));
-        const event_num_registrations = formData.get('event_num_registrations') ? Number(formData.get('event_num_registrations')) : null;
+        const event_num_registrations = formData.get('event_num_registrations') ? Number(formData.get('event_num_registrations')) : 0;
 
         // Trate as datas como strings ao extrair do formData
         const event_registration_start_date = formData.get('event_registration_start_date') as string | null;

@@ -1,5 +1,6 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
+import { findUserLogin, findUserPermissions } from "@/backend/usuario/RepositorioUsuario"
 
 const handler = NextAuth({
   pages: {
@@ -7,40 +8,60 @@ const handler = NextAuth({
   },
   providers: [
     CredentialsProvider({
-        name: 'Credentials',
-        credentials: {
-          login: { label: "login", type: "text" },
-          password: { label: "password", type: "password" }
-        },
-        async authorize(credentials, req) {
-            if (!credentials) {
-                return null
-            }
-
-            // Verifique se as credenciais estão corretas
-            if (credentials.login === "88020193049" && credentials.password === "liess123") {
-                return {
-                    id: "1",
-                    name: "Gabriel Santos Costa",
-                    email: "gabrielsantoscosta005@gmail.com",
-                    image: "/Avatares/gabriel-costa.jpeg"
-                }
-            }
-            if (credentials.login === "13366488999" && credentials.password === "dieinicarla") {
-              return {
-                  id: "2",
-                  name: "Dieini Carla Ferreira",
-                  email: "dieinicarlaferreira@gmail.com",
-                  image: "/Avatares/dieini-carla.jpeg"
-              }
-          }
-
-            // Log das credenciais recebidas para depuração
-            console.log(credentials)
-            return null
+      name: 'Credentials',
+      credentials: {
+        login: { label: "login", type: "text" },
+        password: { label: "password", type: "password" }
+      },
+      authorize: async (credentials, req) => {
+        if (!credentials) {
+          return null;
         }
-      })
-  ]
+
+        try {
+          // Espera a resposta da função findUserLogin
+          const user = await findUserLogin(credentials.login, credentials.password);
+
+          // Se o usuário for encontrado, retorna os dados do usuário
+          if (user) {
+            const permissions = await findUserPermissions(user.user_id);
+
+            return {
+              id: user.user_id.toString(), // Convertendo para string se necessário
+              name: user.user_name,
+              email: user.user_email,
+              image: user.user_avatar,
+              permissions: permissions.map(p => ({
+                id: p.permission.permission_id,
+                name: p.permission.permission_name
+              }))
+            };
+          } else {
+            // Se o usuário não for encontrado ou a senha estiver errada, retorna null
+            return null;
+          }
+        } catch (error) {
+          console.error('Erro na autorização:', error);
+          return null;
+        }
+      }
+    })
+  ],
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user?.permissions) {
+        token.permissions = user.permissions; // Adiciona as permissões ao token
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token?.permissions) {
+        session.user.permissions = token.permissions; // Adiciona as permissões à sessão
+      }
+      return session;
+    }
+  }
 })
 
 export { handler as GET, handler as POST }
+

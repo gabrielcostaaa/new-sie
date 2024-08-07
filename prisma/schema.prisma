@@ -61,7 +61,7 @@ model Event {
   event_description             String?  @db.LongText      // A Descrição não é obrigatória
   event_partnership             String?  @db.VarChar(500)  // Parcerias também não são obrigatórias
   event_max_registrations       Int                       // Limite de participantes no evento, sendo obrigatório seu registro e alterável até o início do evento
-  event_num_registrations       Int?                      // Contador de quantos participantes vão participar, a cada inscrição feita ou cancelada ele atualiza, inicialmente podendo ser NULL
+  event_num_registrations       Int                       // Contador de quantos participantes vão participar, a cada inscrição feita ou cancelada ele atualiza, inicialmente podendo ser NULL
   event_registration_start_date String                       // Dia de início para inscrições do evento, obrigatório
   event_registration_start_time String                       // Hora de início para inscrições do evento, obrigatório
   event_registration_end_date   String                       // Data final de inscrição, obrigatório

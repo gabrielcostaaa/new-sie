@@ -54,3 +54,41 @@ export async function getAllUsers() {
         throw error;
     }
 }
+
+export async function findUserLogin(user_cpf: string, user_password: string) {
+    try {
+        const user = await prisma.user.findFirst({
+          where: {
+            user_cpf: user_cpf,
+            user_password: user_password,
+          },
+        });
+    
+        if (user) {
+          console.log('Usuário encontrado:', user);
+          return user;
+        } else {
+          console.log('Nenhum usuário encontrado com o CPF e senha fornecidos.');
+          return null;
+        }
+      } catch (error) {
+        console.error('Erro ao consultar o banco de dados:', error);
+        throw error;
+      } finally {
+        await prisma.$disconnect();
+      }
+}
+
+export async function findUserPermissions(user_id: number) {
+    return prisma.userPermission.findMany({
+        where: { user_id: user_id },
+        select: {
+          permission: {
+            select: {
+              permission_id: true,
+              permission_name: true
+            }
+          }
+        }
+      });
+  }
