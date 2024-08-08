@@ -87,3 +87,12 @@ export async function getAllEvents() {
       throw error;
     }
   }
+
+  export async function getEventById(event_id: number) {
+    const event = await prisma.event.findUnique({
+      where: {
+        event_id: event_id,
+      },
+    });
+    return event;
+  }

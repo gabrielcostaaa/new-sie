@@ -9,7 +9,7 @@ import { redirect } from "next/navigation";
 export default async function  AdminLayout({ children }) {
   
   const session = await getServerSession()
-  console.log('Session data:', session?.user);
+  // console.log('Session data:', session?.user);
 
   if (!session){
     redirect("/")
@@ -69,7 +69,7 @@ export default async function  AdminLayout({ children }) {
             caminho='/'
           />
         </Sidebar>
-        <main className='h-screen w-screen'>
+        <main className='flex-1 overflow-y-auto'>
           <section className='p-4'>{children}</section>
         </main>
       </div>

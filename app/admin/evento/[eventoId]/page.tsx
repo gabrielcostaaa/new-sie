@@ -1,17 +1,25 @@
-import { Button } from "@/components/ui/button";
+import EventDetails from '@/components/EventDetails'
+import { getEventById } from '@/backend/evento/RepositorioEvento';
 
 type Props = {
     params: {
-        eventoId: string;
+        eventoId: number;
     };
 };
 
-export default function EventoDetalhes({ params: { eventoId } }: Props) {
+export default async function EventoDetalhes({ params: { eventoId } }: Props) {
+  const event_id = Number(eventoId);
+  const event = await getEventById(event_id);
+
+  console.log(event)
+
+  if (!event) {
+    return <p>Evento não encontrado</p>;
+  }
+
   return (
-    <>
-    <h1>Aqui a página principal da visualização de um Evento específico</h1>
-    <h2>O ID do evento é {eventoId}
-    </h2>
-    </>
+    <div className="h-screen">
+      <EventDetails event={event}/>
+    </div>
   );
 }

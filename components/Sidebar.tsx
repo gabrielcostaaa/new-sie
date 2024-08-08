@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { SidebarItemProps } from '@/types';
 
+
 const SidebarContext = createContext({ expanded: true });
 
 const Sidebar = ({ children }) => {

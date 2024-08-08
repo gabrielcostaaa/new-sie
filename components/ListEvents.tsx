@@ -1,4 +1,5 @@
 import { Award, Album, UserRoundCheck, Clock, Calendar } from 'lucide-react'
+import Link from 'next/link'
 import { ListEventsProps, brasoes } from "@/types"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -48,9 +49,11 @@ import { Button } from "@/components/ui/button"
             <UserRoundCheck className="w-5 h-5 text-muted-foreground" />
             <p className="text-muted-foreground text-sm">{events.event_num_registrations} / {events.event_max_registrations} Participantes</p>
           </div>
-          <Button variant="outline" size="sm">
-            Participar
-          </Button>
+          <Link href={`/admin/evento/${events.event_id}`} passHref>
+            <Button variant="outline" size="sm">
+              Detalhes
+            </Button>
+          </Link>
         </div>
       </div>
     </Card>

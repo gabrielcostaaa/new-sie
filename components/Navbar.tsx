@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuSeparator, DropdownMenuItem } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
-import { Bell, Plus, MessageCircleMore, QrCode } from 'lucide-react'
+import { Bell, Plus, MessageCircleMore, QrCode, CircleUserRound, Lock, Fingerprint, Bolt} from 'lucide-react'
 import { getServerSession } from "next-auth"
 
 export default async function Component() {
@@ -84,15 +84,32 @@ export default async function Component() {
             </div>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
+            
               <Link href="#" className="flex items-center gap-2" prefetch={false}>
                 <div className="h-4 w-4" />
-                <span>Perfil</span>
+                <CircleUserRound className="h4 w-4" />
+                <span>Meu Perfil</span>
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
               <Link href="#" className="flex items-center gap-2" prefetch={false}>
                 <div className="h-4 w-4" />
-                <span>Configurações</span>
+                <Lock className="h4 w-4" />
+                <span>Privacidade e Segurança</span>
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href="#" className="flex items-center gap-2" prefetch={false}>
+                <div className="h-4 w-4" />
+                <Fingerprint className="h4 w-4" />
+                <span>Conformidade com a LGPD</span>
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href="#" className="flex items-center gap-2" prefetch={false}>
+                <div className="h-4 w-4" />
+                <Bolt className="h4 w-4" />
+                <span>Configurações de Conta</span>
               </Link>
             </DropdownMenuItem>
           </DropdownMenuContent>
