@@ -85,28 +85,28 @@ export default async function Component() {
             <DropdownMenuSeparator />
             <DropdownMenuItem>
             
-              <Link href="#" className="flex items-center gap-2" prefetch={false}>
+              <Link href="/admin/usuario" className="flex items-center gap-2" prefetch={false}>
                 <div className="h-4 w-4" />
                 <CircleUserRound className="h4 w-4" />
                 <span>Meu Perfil</span>
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <Link href="#" className="flex items-center gap-2" prefetch={false}>
+              <Link href="/admin/usuario/priv-e-seguranca" className="flex items-center gap-2" prefetch={false}>
                 <div className="h-4 w-4" />
                 <Lock className="h4 w-4" />
                 <span>Privacidade e Segurança</span>
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <Link href="#" className="flex items-center gap-2" prefetch={false}>
+              <Link href="/admin/usuario/conformidade-lgpd" className="flex items-center gap-2" prefetch={false}>
                 <div className="h-4 w-4" />
                 <Fingerprint className="h4 w-4" />
                 <span>Conformidade com a LGPD</span>
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <Link href="#" className="flex items-center gap-2" prefetch={false}>
+              <Link href="/admin/usuario/config-conta" className="flex items-center gap-2" prefetch={false}>
                 <div className="h-4 w-4" />
                 <Bolt className="h4 w-4" />
                 <span>Configurações de Conta</span>
