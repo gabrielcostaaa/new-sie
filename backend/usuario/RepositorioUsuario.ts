@@ -92,3 +92,9 @@ export async function findUserPermissions(user_id: number) {
         }
       });
   }
+
+  export async function findUserProfile(user_email: string) {
+    return prisma.user.findUnique({
+      where: { user_email: user_email }
+    })
+  }

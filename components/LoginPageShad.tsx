@@ -89,7 +89,6 @@ export default function Component() {
             Entrar
           </Button>
         </form>
-        <pre>{saida}</pre>
       </div>
     </div>
   );

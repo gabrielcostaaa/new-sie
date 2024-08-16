@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-// ESSE É O ARQUIVO PADRAO DO LAYOUT (RENDERIZADO PRIMEIRO PELO NEXTJS), ONDE TUDO O QUE COLOCAR AQUI VAI FICAR FIXO EM TODAS AS ROTAS
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
