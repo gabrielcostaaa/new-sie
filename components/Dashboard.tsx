@@ -15,7 +15,7 @@ export default function Dashboard() {
   return (
     <div className="grid min-h-screen w-full">
       <main className="grid flex-1 gap-4 p-4 sm:gap-8 sm:p-6">
-        <h1 className="font-semibold text-lg">Menu Principal</h1>
+        <h1 className="font-semibold text-2xl">Dashboard</h1>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between pb-2">
