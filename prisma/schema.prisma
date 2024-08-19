@@ -29,11 +29,13 @@ model User {
   user_entity   String
   user_number_work String?
   user_avatar   String?
+  user_date_of_birth String       @default("")
   user_createdAt DateTime         @default(now())   // Data e hora de criação do registro, padrão é a data e hora atuais
   user_updatedAt DateTime         @updatedAt // Data e hora da última atualização do registro, atualizado automaticamente
   user_isDeleted Boolean          @default(false) // Campo para exclusão lógica, padrão é false (não deletado)
   
   permissions   UserPermission[]
+  registrations EventRegistration[]
 }
 
 model Permission {
@@ -76,7 +78,9 @@ model Event {
   event_certificate_start_number Int?                     // Se emitir certificado, é para gerar um intervalo de número de certificado (para ser único a cada usuário), gerado assim que o evento é concluído
   event_certificate_end_number   Int?                     // Número final do intervalo de certificado
   event_image                   String?  @db.LongText     // Caminho para imagem do evento
+  event_qr_code                 String   @unique   @default("")       // Para ter a opção de presença pelo qrcode do evento, do participante ou dos dois
   user_id                       Int                       // Usuário Administrador do sistema que criou o evento, obrigatório
+  event_confirm_registration    Int      @default(0)                 // Um booleano, quando 0 não irá ter confirmação de inscrição por parte do responsável pelo evento, caso 1 irá ter (aparece mensagem na dashboar do responsável para confirmar o participante)
   event_declaration             Int      @default(0)      // Um booleano, quando 0 o evento emite Certificado, quando 1 o evento emite Declaração, obrigatório
   event_document_attachment     Int?                      // Um booleano checkbox, Documentos Obrigatórios para Anexar
   event_content_choice          Int?                      // Um booleano checkbox, Participante pode escolher evento
@@ -87,6 +91,25 @@ model Event {
   document_orientations_description_1 String?  @db.LongText // Descrição 1 de orientações
   document_orientations_description_2 String?  @db.LongText // Descrição 2 de orientações
   event_conclusion              Int                       // Um booleano, se 0 o evento não foi concluído, se 1 o evento foi concluído, já fica em 0 quando cria
+
+  registrations EventRegistration[]
 }
+
+model EventRegistration {
+  registration_id     Int       @id @default(autoincrement()) // ID único para cada inscrição, gerado automaticamente
+  user_id             Int                                        // Relaciona a inscrição com um usuário específico
+  event_id            Int                                        // Relaciona a inscrição com um evento específico
+  registration_qr_code String   @unique                          // Código único do QR code para validação da presença
+  registration_status  Int       @default(1)                     // 0: cancelado, 1: pendente, 2: confirmado
+  registration_date   DateTime @default(now())                   // Data e hora em que a inscrição foi feita
+  presence_confirmed  Boolean  @default(false)                   // Indica se a presença foi confirmada ou não
+  registration_feedback String?                                  // Feedback do usuário após o evento, opcional
+  
+  user                User      @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
+  event               Event     @relation(fields: [event_id], references: [event_id], onDelete: Cascade)
+
+  @@unique([user_id, event_id])                                   // Garante que cada usuário possa se inscrever apenas uma vez por evento
+}
+
 
 

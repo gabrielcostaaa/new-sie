@@ -31,7 +31,7 @@ export default function UserProfile ({user}:any) {
               <div className="flex items-center gap-2 mt-4">
               <Cake className="h-6 w-6"/>
                 <h3 className="font-semibold">Data de Nascimento:</h3>
-                <p>05/03/2003 ta estático</p>
+                <p>{user.user_date_of_birth}</p>
               </div>
               <div className="flex items-center gap-2 mt-4">
               <Sun className="h-6 w-6"/>

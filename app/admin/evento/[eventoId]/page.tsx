@@ -1,5 +1,6 @@
 import EventDetails from '@/components/EventDetails'
 import { getEventById } from '@/backend/evento/RepositorioEvento';
+import { getServerSession } from 'next-auth';
 
 type Props = {
     params: {
@@ -8,6 +9,11 @@ type Props = {
 };
 
 export default async function EventoDetalhes({ params: { eventoId } }: Props) {
+
+  const session = await getServerSession()
+
+  const userId : number = 2
+
   const event_id = Number(eventoId);
   const event = await getEventById(event_id);
 
@@ -17,7 +23,7 @@ export default async function EventoDetalhes({ params: { eventoId } }: Props) {
 
   return (
     <div className="h-screen">
-      <EventDetails event={event}/>
+      <EventDetails event={event} id={event_id} user={userId}/>
     </div>
   );
 }

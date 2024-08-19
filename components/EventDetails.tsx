@@ -1,12 +1,21 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import brasoes from "@/app/data/constants/brasoes"
 import Link from "next/link"
 import { Award, Album, UserRoundCheck, Clock, Calendar, MapPinned, MessageCircle} from 'lucide-react'
+import { registerUserEvent } from "@/backend/ingressos/RepositorioIngressos"
+import { getSession } from "next-auth/react"
 
+export default function Component({ event, id, user }: { event: any; id: any; user: any }) {
 
-export default function Component({event}:any) {
-const isRegistrationClosed = event.event_num_registrations >= event.event_max_registrations
+  const isRegistrationClosed = event.event_num_registrations >= event.event_max_registrations
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    await registerUserEvent(id, 2) // registerUserEvent(event.event_id, Number(user))
+  }
 
   return (
     <div className="h-full w-full">
@@ -58,13 +67,16 @@ const isRegistrationClosed = event.event_num_registrations >= event.event_max_re
                 {event.event_declaration === 1 ? "Declaração" : "Certificado"}
                 </div>
               </div>
+              <form onSubmit={handleSubmit}>
               <Button
+                type={isRegistrationClosed ? "button" : "submit"}
                 size="lg"
                 className={`mt-4 sm:mt-0 ${isRegistrationClosed ? 'bg-gray-500 text-white cursor-not-allowed' : 'bg-blue-500 text-white hover:bg-blue-600'}`}
                 disabled={isRegistrationClosed}
                 >
                 {isRegistrationClosed ? 'Inscrições Encerradas' : 'Inscrever-se Agora'}
                 </Button>
+              </form>
             </div>
           </div>
           <Separator className="my-2" />
