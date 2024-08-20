@@ -5,10 +5,13 @@ import CardTicket from '@/components/CardTicket';
 import { useEffect, useState } from 'react';
 import { getSession } from 'next-auth/react';
 import { findUserProfile } from '@/backend/usuario/RepositorioUsuario';
+import NoTickets from '@/components/NoTickets';
+import LoadingSpinner from '@/components/LoadingSpinner';
 
 export default  function Ingressos() {
 
   const [tickets, setTickets] = useState([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     async function fetchTickets() {
@@ -18,6 +21,7 @@ export default  function Ingressos() {
         const fetchedTickets = await getAllRegistrations(userId?.user_id)
         console.log("Tickets recebidos:", fetchedTickets); // Verifica o que está sendo recebido
         setTickets(fetchedTickets);
+        setLoading(false)
       } catch (error) {
         console.error("Erro ao buscar eventos:", error);
       }
@@ -25,6 +29,16 @@ export default  function Ingressos() {
 
     fetchTickets();
   }, []);
+
+  if (loading) {
+    return <LoadingSpinner/>
+  }
+
+  if (tickets.length == 0){
+    return (
+      <NoTickets/>
+    )
+  }
 
   return (
     <>

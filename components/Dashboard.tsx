@@ -11,8 +11,8 @@ export default function Dashboard() {
     <div className="grid min-h-screen w-full">
       <main className="grid flex-1 gap-4 p-4 sm:gap-8 sm:p-6">
         <h1 className="font-semibold text-2xl">Dashboard</h1>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <Card>
+        <div className="container grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <Card className="">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium">Total de Eventos</CardTitle>
               <CalendarIcon className="w-4 h-4 text-muted-foreground" />

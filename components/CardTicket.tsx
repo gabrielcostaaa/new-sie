@@ -6,6 +6,7 @@ import brasoes from "@/app/data/constants/brasoes";
 import { ListCardTicketsProps } from "@/types";
 
 export default function CardTicket({ tickets }: ListCardTicketsProps) {
+
   return (
     <Card className="w-full max-w-md">
       <div className="relative">
