@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import ListEvents from "@/components/ListEvents";
-import events from "@/app/data/constants/events";
 import { getAllEvents } from '@/backend/evento/RepositorioEvento';
 
 export default function Evento() {

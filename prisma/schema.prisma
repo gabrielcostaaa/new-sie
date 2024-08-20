@@ -78,7 +78,7 @@ model Event {
   event_certificate_start_number Int?                     // Se emitir certificado, é para gerar um intervalo de número de certificado (para ser único a cada usuário), gerado assim que o evento é concluído
   event_certificate_end_number   Int?                     // Número final do intervalo de certificado
   event_image                   String?  @db.LongText     // Caminho para imagem do evento
-  event_qr_code                 String   @unique   @default("")       // Para ter a opção de presença pelo qrcode do evento, do participante ou dos dois
+  event_qr_code                 String   @unique   @default(cuid())       // Para ter a opção de presença pelo qrcode do evento, do participante ou dos dois
   user_id                       Int                       // Usuário Administrador do sistema que criou o evento, obrigatório
   event_confirm_registration    Int      @default(0)                 // Um booleano, quando 0 não irá ter confirmação de inscrição por parte do responsável pelo evento, caso 1 irá ter (aparece mensagem na dashboar do responsável para confirmar o participante)
   event_declaration             Int      @default(0)      // Um booleano, quando 0 o evento emite Certificado, quando 1 o evento emite Declaração, obrigatório

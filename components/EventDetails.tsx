@@ -14,7 +14,8 @@ export default function Component({ event, id, user }: { event: any; id: any; us
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    await registerUserEvent(id, 2) // registerUserEvent(event.event_id, Number(user))
+    console.log(user)
+    await registerUserEvent(id, user) // registerUserEvent(event.event_id, Number(user))
   }
 
   return (

@@ -1,17 +1,17 @@
-import NextAuth from "next-auth"
-import CredentialsProvider from "next-auth/providers/credentials"
-import { findUserLogin, findUserPermissions } from "@/backend/usuario/RepositorioUsuario"
+import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { findUserLogin, findUserPermissions } from "@/backend/usuario/RepositorioUsuario";
 
 const handler = NextAuth({
   pages: {
-    signIn: '/'
+    signIn: '/',
   },
   providers: [
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
         login: { label: "login", type: "text" },
-        password: { label: "password", type: "password" }
+        password: { label: "password", type: "password" },
       },
       authorize: async (credentials, req) => {
         if (!credentials) {
@@ -19,49 +19,50 @@ const handler = NextAuth({
         }
 
         try {
-          // Espera a resposta da função findUserLogin
           const user = await findUserLogin(credentials.login, credentials.password);
 
-          // Se o usuário for encontrado, retorna os dados do usuário
           if (user) {
             const permissions = await findUserPermissions(user.user_id);
 
             return {
-              id: user.user_id.toString(), // Convertendo para string se necessário
+              id: user.user_id,
               name: user.user_name,
               email: user.user_email,
               image: user.user_avatar,
               permissions: permissions.map(p => ({
                 id: p.permission.permission_id,
-                name: p.permission.permission_name
-              }))
+                name: p.permission.permission_name,
+              })),
             };
           } else {
-            // Se o usuário não for encontrado ou a senha estiver errada, retorna null
             return null;
           }
         } catch (error) {
           console.error('Erro na autorização:', error);
           return null;
         }
-      }
-    })
+      },
+    }),
   ],
   callbacks: {
     async jwt({ token, user }) {
-      if (user?.permissions) {
-        token.permissions = user.permissions; // Adiciona as permissões ao token
+      if (user) {
+        token.id = user.id; // Adiciona o id diretamente no token
+        token.permissions = user.permissions;
       }
       return token;
     },
     async session({ session, token }) {
+      if (token?.id) {
+        session.user.id = token.id; // Passa o id diretamente para a sessão
+      }
       if (token?.permissions) {
-        session.user.permissions = token.permissions; // Adiciona as permissões à sessão
+        session.user.permissions = token.permissions;
       }
       return session;
     }
   }
-})
+});
 
-export { handler as GET, handler as POST }
+export { handler as GET, handler as POST };
 
