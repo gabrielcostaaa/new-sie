@@ -18,12 +18,12 @@ const PasswordToggle = ({ inputId }) => {
     <button
     type="button"
     onClick={togglePasswordVisibility}
-    className="absolute inset-y-0 right-2 flex items-center mt-6"
+    className="absolute inset-y-0 right-2 flex items-center mt-4"
     >
       {passwordVisible ? (
-        <EyeOff className="w-6 h-6 text-gray-500" />
+        <EyeOff color="#828282" className="w-6 h-6" />
       ) : (
-        <Eye className="w-6 h-6 text-gray-500" />
+        <Eye color="#828282" className="w-6 h-6" />
       )}
     </button>
   );
