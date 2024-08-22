@@ -15,6 +15,18 @@ export async function registerUserEvent(event_id: number, user_id: number) {
                 registration_qr_code: registration_qr_code
             }
         })
+
+        await prisma.event.update({
+          where: {
+            event_id: event_id,
+          },
+          data: {
+            event_num_registrations: {
+              increment: 1,
+            }
+          }
+        })
+        
     } catch (error) {
         console.error("Erro ao inscrever o usuário no evento:", error);
     }
