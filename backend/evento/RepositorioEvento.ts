@@ -88,11 +88,56 @@ export async function getAllEvents() {
     }
   }
 
-  export async function getEventById(event_id: number) {
-    const event = await prisma.event.findUnique({
-      where: {
-        event_id: event_id,
-      },
-    });
-    return event;
+  export async function getEventById(event_id: number, user_email: string) {
+    
+    try {
+      // Buscar usuário pelo email
+      const user = await prisma.user.findUnique({
+        where: {
+          user_email: user_email,
+        },
+        select: {
+          user_id: true,
+        },
+      });
+  
+      // Se o usuário não for encontrado, lançar um erro
+      if (!user) {
+        throw new Error("Usuário não encontrado, talvez o email esteja incorreto.");
+      }
+  
+      const user_id = user.user_id;
+  
+      // Verificar se o usuário já está registrado no evento
+      const registration = await prisma.eventRegistration.findFirst({
+        where: {
+          event_id: event_id,
+          user_id: user_id,
+        },
+        select: {
+          registration_id: true,
+          registration_date: true,
+        },
+      });
+  
+      // Buscar e retornar os dados do evento caso não tenha registro de inscrição
+      const event = await prisma.event.findUnique({
+        where: {
+          event_id: event_id,
+        },
+      });
+  
+      return {
+        event: event,
+        registration: registration ? {
+          registration_id: registration.registration_id,
+          registration_date: registration.registration_date,
+        } : null
+      }
+  
+    } catch (error) {
+      console.error("Erro ao buscar evento ou inscrição:", error);
+      throw new Error("Erro ao processar a requisição.");
+    }
   }
+  

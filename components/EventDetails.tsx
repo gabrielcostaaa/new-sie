@@ -6,16 +6,36 @@ import brasoes from "@/app/data/constants/brasoes"
 import Link from "next/link"
 import { Award, Album, UserRoundCheck, Clock, Calendar, MapPinned, MessageCircle} from 'lucide-react'
 import { registerUserEvent } from "@/backend/ingressos/RepositorioIngressos"
-import { getSession } from "next-auth/react"
+import { useState, useEffect } from "react"
+import { useRouter } from 'next/navigation'
+import { useToast } from '@/components/ui/use-toast'
 
-export default function Component({ event, id, user }: { event: any; id: any; user: any }) {
+
+export default function Component({ event, id, user, registration }: { event: any; id: any; user: any; registration:any }) {
+
+  const [ticket, setTicket] = useState(false)
+  const router = useRouter()
+  const {toast} = useToast()
+  
+  useEffect(() => {
+    if (registration?.registration_id) {
+      setTicket(true)
+    }
+  }, [registration])
 
   const isRegistrationClosed = event.event_num_registrations >= event.event_max_registrations
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    console.log(user)
-    await registerUserEvent(id, user) // registerUserEvent(event.event_id, Number(user))
+    await registerUserEvent(id, user)
+
+    router.push('/admin/evento')
+
+    toast({
+      title: "Inscrição Realizada",
+      description: "Você foi inscrito no evento com sucesso!",
+      variant: "destructive",
+    })
   }
 
   return (
@@ -69,13 +89,17 @@ export default function Component({ event, id, user }: { event: any; id: any; us
                 </div>
               </div>
               <form onSubmit={handleSubmit}>
-              <Button
-                type={isRegistrationClosed ? "button" : "submit"}
-                size="lg"
-                className={`mt-4 sm:mt-0 ${isRegistrationClosed ? 'bg-gray-500 text-white cursor-not-allowed' : 'bg-blue-500 text-white hover:bg-blue-600'}`}
-                disabled={isRegistrationClosed}
+                <Button
+                  type={isRegistrationClosed || ticket ? "button" : "submit"}
+                  size="lg"
+                  className={`mt-4 sm:mt-0 ${isRegistrationClosed || ticket ? 'bg-gray-500 text-white cursor-not-allowed' : 'bg-blue-500 text-white hover:bg-blue-600'}`}
+                  disabled={isRegistrationClosed || ticket}
                 >
-                {isRegistrationClosed ? 'Inscrições Encerradas' : 'Inscrever-se Agora'}
+                  {ticket
+                    ? 'Já está inscrito'
+                    : isRegistrationClosed
+                    ? 'Inscrições Encerradas'
+                    : 'Inscrever-se Agora'}
                 </Button>
               </form>
             </div>

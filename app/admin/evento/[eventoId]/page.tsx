@@ -10,23 +10,17 @@ type Props = {
 };
 
 export default async function EventoDetalhes({ params: { eventoId } }: Props) {
-    // Configuração do NextAuth para obter a sessão do servidor
+
     const session = await getServerSession();
 
-    // Verifique a sessão e extraia o user_id
     const userId = await findUserProfile(session?.user.email)
 
-    // Verifique se o eventoId está disponível
     const event_id = Number(eventoId);
-    const event = await getEventById(event_id);
-
-    if (!event) {
-        return <p>Evento não encontrado</p>;
-    }
+    const infoEvent = await getEventById(event_id, session?.user.email);
 
     return (
         <div className="h-screen">
-            <EventDetails event={event} id={event_id} user={userId?.user_id} />
+            <EventDetails event={infoEvent.event} id={event_id} user={userId?.user_id} registration={infoEvent.registration}/>
         </div>
     );
 }
