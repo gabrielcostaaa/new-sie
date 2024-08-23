@@ -34,7 +34,6 @@ export default function Component({ event, id, user, registration }: { event: an
     toast({
       title: "Inscrição Realizada",
       description: "Você foi inscrito no evento com sucesso!",
-      variant: "destructive",
     })
   }
 

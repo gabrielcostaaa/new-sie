@@ -25,6 +25,7 @@ const config = {
         'certificado-gradient': 'linear-gradient(to right, #C8102E, #F15C5C)',
         'declaracao-gradient': 'linear-gradient(to right, #34D399, #A0F1C1)',
         'municipios-gradient': 'linear-gradient(to right, #2563EB, #60A5FA)',
+        'sucesso': 'linear-gradient(to right, #34D399, #34D399)',
       },
       colors: {
         border: "hsl(var(--border))",
