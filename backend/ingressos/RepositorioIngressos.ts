@@ -16,14 +16,18 @@ export async function registerUserEvent(event_id: number, user_id: number) {
             }
         })
 
+        const registrationCount = await prisma.eventRegistration.count({
+          where: {
+            event_id: event_id
+          }
+        })
+
         await prisma.event.update({
           where: {
             event_id: event_id,
           },
           data: {
-            event_num_registrations: {
-              increment: 1,
-            }
+            event_num_registrations: registrationCount
           }
         })
         

@@ -45,10 +45,12 @@ import { Button } from "@/components/ui/button"
           </div>
         </div>
         <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2">
-            <UserRoundCheck className="w-5 h-5 text-muted-foreground" />
-            <p className="text-muted-foreground text-sm">{events.event_num_registrations} / {events.event_max_registrations} Participantes</p>
-          </div>
+        <div className={`flex items-center gap-2 text-sm ${events.event_num_registrations === events.event_max_registrations ? "text-red-500" : "text-green-600"}`}>
+          <UserRoundCheck className="w-5 h-5" />
+          <span className="text-sm">
+            {events.event_num_registrations} / {events.event_max_registrations} Participantes
+          </span>
+        </div>
           <Link href={`/admin/evento/${events.event_id}`} passHref>
             <Button variant="outline" size="sm">
               Detalhes

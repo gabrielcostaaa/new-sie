@@ -68,7 +68,7 @@ export default function Component({ event, id, user, registration }: { event: an
             </div>
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between">
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 text-md text-muted-foreground">
-                <div className="flex items-center gap-2">
+                <div className={`flex items-center gap-2 ${ event.event_num_registrations == event.event_max_registrations ? "text-red-500" : "text-green-600" } `}>
                   <UserRoundCheck className="h-4 w-4" />
                   <span>{event.event_num_registrations} / {event.event_max_registrations} Participantes</span>
                 </div>
