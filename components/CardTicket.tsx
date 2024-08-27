@@ -1,24 +1,40 @@
+import { useRouter } from 'next/navigation';
+import { useToast } from "@/components/ui/use-toast";
+import { deleteRegisterUserEvent } from "@/backend/ingressos/RepositorioIngressos";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Calendar, Clock, MapPin } from 'lucide-react';
 import MyQRCode from '@/components/MyQRCode';
 import brasoes from "@/app/data/constants/brasoes";
-import { ListCardTicketsProps } from "@/types";
-import DownloadTicketPDF from '../components/DownloadTicketPDF'
-import { deleteRegisterUserEvent } from "@/backend/ingressos/RepositorioIngressos"
+import DownloadTicketPDF from '../components/DownloadTicketPDF';
 
-export default function CardTicket({ tickets, user } : { tickets: ListCardTicketsProps; user:any }) {
+export default function CardTicket({ tickets, user } : { tickets: any; user: any }) {
+  const router = useRouter();
+  const { toast } = useToast();
+  const { registration_id } = tickets;
 
-  const handleSubmit = async (tickets) => {
-    tickets.preventDefault()
-    await deleteRegisterUserEvent(tickets.event.event_id, user)
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-    toast({
-      title: "Seu ingresso foi cancelado",
-      description: "Você efetuou o cancelamento do ingresso!",
-      variant: "destructive"
-    })
-  }
+    try {
+      await deleteRegisterUserEvent(registration_id, user);
+
+      router.refresh()
+
+      toast({
+        title: "Seu ingresso foi cancelado",
+        description: "Você efetuou o cancelamento do ingresso!",
+        variant: "destructive"
+      });
+    } catch (error) {
+      console.error("Erro ao cancelar o ingresso:", error);
+      toast({
+        title: "Erro ao cancelar o ingresso",
+        description: "Ocorreu um erro ao tentar cancelar seu ingresso. Tente novamente mais tarde.",
+        variant: "destructive"
+      });
+    }
+  };
 
   return (
     <Card className="w-full max-w-sm">
@@ -70,11 +86,13 @@ export default function CardTicket({ tickets, user } : { tickets: ListCardTicket
           <Button variant="outline" className="w-3/5 text-sm py-2">
             Contatar o Organizador
           </Button>
-          <form onSubmit={handleSubmit}>
-            <Button variant="outline" className="w-2/5 text-sm text-white py-2 bg-destructive hover:bg-red-500 hover:text-white">
+            <Button 
+              onClick={handleSubmit}
+              variant="outline" 
+              className="w-2/5 text-sm text-white py-2 bg-destructive hover:bg-red-500 hover:text-white"
+            >
               Cancelar Ingresso
             </Button>
-          </form>
         </div>
       </CardContent>
     </Card>

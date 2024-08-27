@@ -36,15 +36,50 @@ export async function registerUserEvent(event_id: number, user_id: number) {
     }
 }
 
-export async function deleteRegisterUserEvent(event_id: number, user_id: number) {
-  
-  const response = await prisma.eventRegistration.delete({ //TODO verificar condições que tem que entrar na função de delete do prisma, preciso deletar o ingresso do usuário no evento, logo após, atualizar o numero de participantes do evento
-    where: {
-      event_id: event_id,
-      user_id: user_id
+export async function deleteRegisterUserEvent(registration_id: number, user_id: number) {
+  try {
+    // Deletar o registro de ingresso específico
+    const registration = await prisma.eventRegistration.findUnique({
+      where: {
+        registration_id: registration_id
+      }
+    });
+
+    if (!registration || registration.user_id !== user_id) {
+      console.error("Registro de ingresso não encontrado ou usuário não autorizado.");
+      return;
     }
-  })
+
+    await prisma.eventRegistration.delete({
+      where: {
+        registration_id: registration_id
+      }
+    });
+
+    // Contar quantos registros restam para o evento
+    const registrationCount = await prisma.eventRegistration.count({
+      where: {
+        event_id: registration.event_id
+      }
+    });
+
+    // Atualizar o número de participantes no evento
+    await prisma.event.update({
+      where: {
+        event_id: registration.event_id
+      },
+      data: {
+        event_num_registrations: registrationCount
+      }
+    });
+
+    console.log("Ingresso deletado e número de participantes atualizado.");
+    
+  } catch (error) {
+    console.error("Erro ao deletar o ingresso do usuário no evento:", error);
+  }
 }
+
 
 export async function getAllRegistrations(user_id : number) {
     try {
