@@ -44,7 +44,7 @@ export default  function Ingressos() {
     <>
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
     {tickets.map(ticket => (
-        <CardTicket key={ticket.registration_id} tickets={ticket} />
+        <CardTicket key={ticket.registration_id} tickets={ticket} user={userId?.user_id}/> //TODO colocar dentro do map o usuário dos tickets, pois tem um botao de cancelar o ingresso em cada um
       ))}
     </div>
     </>

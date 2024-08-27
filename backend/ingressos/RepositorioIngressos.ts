@@ -36,6 +36,16 @@ export async function registerUserEvent(event_id: number, user_id: number) {
     }
 }
 
+export async function deleteRegisterUserEvent(event_id: number, user_id: number) {
+  
+  const response = await prisma.eventRegistration.delete({ //TODO verificar condições que tem que entrar na função de delete do prisma, preciso deletar o ingresso do usuário no evento, logo após, atualizar o numero de participantes do evento
+    where: {
+      event_id: event_id,
+      user_id: user_id
+    }
+  })
+}
+
 export async function getAllRegistrations(user_id : number) {
     try {
         // Buscar todas as inscrições (registrations) do usuário específico

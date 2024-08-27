@@ -9,6 +9,12 @@ export default async function Admin() {
     redirect("/")
   }
 
+  //TODO if (primeiroLoginUsuario){ 
+  //   return (
+  //     <TermosPrivacidade/>
+  //   )
+  // }
+
   return (
       <Dashboard/>
   );
