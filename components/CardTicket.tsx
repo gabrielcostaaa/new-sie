@@ -5,8 +5,26 @@ import MyQRCode from '@/components/MyQRCode';
 import brasoes from "@/app/data/constants/brasoes";
 import { ListCardTicketsProps } from "@/types";
 import DownloadTicketPDF from '../components/DownloadTicketPDF'
+import { deleteRegisterUserEvent } from "@/backend/ingressos/RepositorioIngressos"
+import { useRouter } from 'next/navigation'
+import { useToast } from '@/components/ui/use-toast'
 
 export default function CardTicket({ tickets }: ListCardTicketsProps) {
+
+  const router = useRouter()
+  const {toast} = useToast()
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    await deleteRegisterUserEvent(tickets.registration_id, tickets.event_id)
+
+    router.push('/admin/ingressos')
+
+    toast({
+      title: "Inscrição Removida",
+      description: "Você cancelou seu ingresso no evento com sucesso!",
+    })
+  }
 
   return (
     <Card className="w-full max-w-sm">
@@ -58,9 +76,11 @@ export default function CardTicket({ tickets }: ListCardTicketsProps) {
           <Button variant="outline" className="w-3/5 text-sm py-2">
             Contatar o Organizador
           </Button>
-          <Button variant="outline" className="w-2/5 text-sm text-white py-2 bg-destructive hover:bg-red-500 hover:text-white">
-            Cancelar Ingresso
-          </Button>
+          <form onSubmit={handleSubmit}>
+            <Button variant="outline" className="text-sm text-white py-2 bg-destructive hover:bg-red-500 hover:text-white">
+              Cancelar Ingresso
+            </Button>
+          </form>
         </div>
       </CardContent>
     </Card>
