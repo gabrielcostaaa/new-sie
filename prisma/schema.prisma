@@ -33,6 +33,7 @@ model User {
   user_createdAt DateTime         @default(now())   // Data e hora de criação do registro, padrão é a data e hora atuais
   user_updatedAt DateTime         @updatedAt // Data e hora da última atualização do registro, atualizado automaticamente
   user_isDeleted Boolean          @default(false) // Campo para exclusão lógica, padrão é false (não deletado)
+  user_termsAccepted Boolean      @default(false) // Nova coluna para termos de privacidade
   
   permissions   UserPermission[]
   registrations EventRegistration[]
@@ -91,7 +92,6 @@ model Event {
   document_orientations_description_1 String?  @db.LongText // Descrição 1 de orientações
   document_orientations_description_2 String?  @db.LongText // Descrição 2 de orientações
   event_conclusion              Int                       // Um booleano, se 0 o evento não foi concluído, se 1 o evento foi concluído, já fica em 0 quando cria
-
   registrations EventRegistration[]
 }
 

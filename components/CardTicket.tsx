@@ -6,7 +6,15 @@ import { Button } from "@/components/ui/button";
 import { Calendar, Clock, MapPin } from 'lucide-react';
 import MyQRCode from '@/components/MyQRCode';
 import brasoes from "@/app/data/constants/brasoes";
+<<<<<<< HEAD
 import DownloadTicketPDF from '../components/DownloadTicketPDF';
+=======
+import { ListCardTicketsProps } from "@/types";
+import DownloadTicketPDF from '../components/DownloadTicketPDF'
+import { deleteRegisterUserEvent } from "@/backend/ingressos/RepositorioIngressos"
+import { useRouter } from 'next/navigation'
+import { useToast } from '@/components/ui/use-toast'
+>>>>>>> 56410f474dfca822a82799a80ebd754299c8501b
 
 export default function CardTicket({ tickets, user } : { tickets: any; user: any }) {
   const router = useRouter();
@@ -35,6 +43,21 @@ export default function CardTicket({ tickets, user } : { tickets: any; user: any
       });
     }
   };
+
+  const router = useRouter()
+  const {toast} = useToast()
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    await deleteRegisterUserEvent(tickets.registration_id, tickets.event_id)
+
+    router.push('/admin/ingressos')
+
+    toast({
+      title: "Inscrição Removida",
+      description: "Você cancelou seu ingresso no evento com sucesso!",
+    })
+  }
 
   return (
     <Card className="w-full max-w-sm">
@@ -86,6 +109,7 @@ export default function CardTicket({ tickets, user } : { tickets: any; user: any
           <Button variant="outline" className="w-3/5 text-sm py-2">
             Contatar o Organizador
           </Button>
+<<<<<<< HEAD
             <Button 
               onClick={handleSubmit}
               variant="outline" 
@@ -93,6 +117,13 @@ export default function CardTicket({ tickets, user } : { tickets: any; user: any
             >
               Cancelar Ingresso
             </Button>
+=======
+          <form onSubmit={handleSubmit}>
+            <Button variant="outline" className="text-sm text-white py-2 bg-destructive hover:bg-red-500 hover:text-white">
+              Cancelar Ingresso
+            </Button>
+          </form>
+>>>>>>> 56410f474dfca822a82799a80ebd754299c8501b
         </div>
       </CardContent>
     </Card>

@@ -100,3 +100,33 @@ export async function getAllRegistrations(user_id : number) {
         throw new Error('Não foi possível buscar os eventos registrados.');
       }
     }
+
+export async function deleteRegisterUserEvent(registration_id: number, event_id: number) {
+  try {
+    
+    const response = await prisma.eventRegistration.delete({
+      where: {
+        registration_id: registration_id
+      }
+  })
+
+  const registrationCount = await prisma.eventRegistration.count({
+    where: {
+      event_id: event_id
+    }
+  })
+
+  await prisma.event.update({
+    where: {
+      event_id: event_id,
+    },
+    data: {
+      event_num_registrations: registrationCount
+    }
+  })
+
+
+  } catch (error) {
+    console.error("Erro ao cancelar ingresso do usuário no evento:", error);
+  }
+}

@@ -9,11 +9,13 @@ import { redirect } from "next/navigation";
 export default async function  AdminLayout({ children }) {
   
   const session = await getServerSession()
+
   // console.log('Session data:', session?.user);
 
   if (!session){
     redirect("/")
   }
+
 
   return (
     <div className='h-screen flex flex-col'>
