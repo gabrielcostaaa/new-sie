@@ -7,6 +7,7 @@ export default async function Admin() {
   const session = await getServerSession()
 
   const userTerms = await findUserProfile(session?.user.email)
+  const UsuarioCodigo = userTerms?.user_id
 
   console.log(userTerms)
 
@@ -16,7 +17,7 @@ export default async function Admin() {
 
   if (userTerms?.user_termsAccepted == false){
     return (
-      redirect("/admin/termos")
+      redirect(`/admin/termos?id=${UsuarioCodigo}`)
     );
   }
 

@@ -98,3 +98,18 @@ export async function findUserPermissions(user_id: number) {
       where: { user_email: user_email }
     })
   }
+
+  export async function UserTermsAccept(user_id: number) {
+    try {
+      const response = await prisma.user.update({
+        where: { user_id: user_id },
+        data: {
+          user_termsAccepted: true,
+        },
+      })
+    } catch (error) {
+      console.error("Erro ao aceitar os termos:", error)
+      throw error
+    }
+  }
+  
