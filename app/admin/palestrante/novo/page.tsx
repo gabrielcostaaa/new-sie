@@ -11,6 +11,8 @@ import municipios from "@/app/data/constants/municipios"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectGroup, SelectItem } from "@/components/ui/select"
 import Link from "next/link"
 
+// TODO implementar validações com react hook form e zod (ou outras ferramentas caso necessário)
+
 export default function Component() {
   return (
     <div className="mx-auto max-w-2xl space-y-6">

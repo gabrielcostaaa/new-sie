@@ -15,6 +15,8 @@ import { useState } from 'react'
 import format from 'date-fns/format'
 import { createEvent } from "@/backend/evento/RepositorioEvento"
 
+// TODO implementar validações com react hook form e zod (ou outras ferramentas caso necessário)
+
 export default function Component() {
   const [selectedDate0, setSelectedDate0] = useState(new Date())
   const [selectedDate1, setSelectedDate1] = useState(new Date())
