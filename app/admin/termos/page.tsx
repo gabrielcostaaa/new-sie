@@ -89,7 +89,6 @@ export default function TermsAccepted() {
           <li>Número de registro de trabalho (opcional)</li>
           <li>Avatar (opcional)</li>
           <li>Data de nascimento</li>
-          <li>Termo de aceitação de privacidade (booleano)</li>
         </ul>
 
         <h3 className="text-lg font-semibold mt-6">3. Finalidade do Tratamento</h3>
@@ -170,9 +169,9 @@ export default function TermsAccepted() {
           de Privacidade, entre em contato conosco:
         </p>
         <p>
-          <strong>E-mail:</strong> suporte@amosc.org.br
+          <strong>E-mail:</strong> informatica1@amosc.org.br
           <br />
-          <strong>Telefone:</strong> (49) 1234-5678
+          <strong>Telefone:</strong> (49) 3319-3207
         </p>
 
         <h3 className="text-lg font-semibold mt-6">10. Alterações na Política</h3>

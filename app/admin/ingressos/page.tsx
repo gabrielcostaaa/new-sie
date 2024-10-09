@@ -36,7 +36,7 @@ export default function Ingressos() {
   }
 
   if (tickets.length == 0) {
-    return <NoTickets />;
+    return <NoTickets name="ingressos"/>;
   }
 
   return (

@@ -3,9 +3,12 @@
 import { useEffect, useState } from 'react';
 import ListEvents from "@/components/ListEvents";
 import { getAllEvents } from '@/backend/evento/RepositorioEvento';
+import NoTickets from '@/components/NoTickets';
+import LoadingSpinner from '@/components/LoadingSpinner';
 
 export default function Evento() {
   const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchEvents() {
@@ -13,6 +16,7 @@ export default function Evento() {
         const fetchedEvents = await getAllEvents();
         console.log("Eventos recebidos:", fetchedEvents); // Verifica o que está sendo recebido
         setEvents(fetchedEvents);
+        setLoading(false);
       } catch (error) {
         console.error("Erro ao buscar eventos:", error);
       }
@@ -20,6 +24,15 @@ export default function Evento() {
 
     fetchEvents();
   }, []);
+
+  if (loading) {
+    return <LoadingSpinner />;
+  }
+
+  if (events.length == 0) {
+    return <NoTickets name="eventos"/>;
+  }
+
 
   return (
     <>
