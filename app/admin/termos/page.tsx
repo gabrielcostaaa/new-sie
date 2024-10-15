@@ -1,5 +1,7 @@
 "use client"
 
+import { useRouter } from 'next/navigation';
+import { useToast } from "@/components/ui/use-toast";
 import { Card, CardContent } from "@/components/ui/card"
 import { useSearchParams } from 'next/navigation'
 import { UserTermsAccept } from "@/backend/usuario/RepositorioUsuario"
@@ -7,6 +9,8 @@ import { useState } from "react"
 
 export default function TermsAccepted() {
 
+    const router = useRouter();
+    const { toast } = useToast();
     const searchParams = useSearchParams();
     const userId = searchParams.get('id');
 
@@ -19,9 +23,15 @@ export default function TermsAccepted() {
         setError(null);
         try {
         if (userId) {
-            // Chame a função para aceitar os termos
+
             await UserTermsAccept(Number(userId));
-            setSuccess(true); // Exibe uma mensagem de sucesso
+            setSuccess(true);
+            router.push('/admin')
+            toast({
+              title: "Está permitido o tratamento de dados",
+              description: "Você aceitou os termos de uso e privacidade",
+              variant: "default"
+            });
         } else {
             setError("ID do usuário não encontrado.");
         }

@@ -21,6 +21,13 @@ export async function createAccount(formData: FormData) {
         const user_number_work = formData.get('user_number_work') as string;
         const user_avatar = formData.get('user_avatar') as string | null;
 
+        const userPermissions = []
+
+        const isAdminChecked = formData.get('permission1') === 'on';
+        const isParticipantChecked = formData.get('permission2') === 'on';
+        const isSpeakerChecked = formData.get('permission3') === 'on';
+
+
         const response = await prisma.user.create({
             data: {
                 user_name,
@@ -40,6 +47,27 @@ export async function createAccount(formData: FormData) {
             }
         });
 
+        if(response) {
+
+          if (isAdminChecked) {
+            userPermissions.push({ user_id: response.user_id, permission_id: 1})
+          }
+
+          if (isParticipantChecked) {
+            userPermissions.push({ user_id: response.user_id, permission_id: 2})
+          }
+
+          if (isSpeakerChecked) {
+            userPermissions.push({ user_id: response.user_id, permission_id: 3})
+          }
+        }
+ 
+        if (userPermissions.length > 0) {
+          await prisma.userPermission.createMany({
+              data: userPermissions
+          });
+      }
+
     } catch (error) {
         console.error("Erro ao criar a conta:", error);
     }
@@ -53,6 +81,49 @@ export async function getAllUsers() {
         console.error("Erro ao obter usuários:", error);
         throw error;
     }
+}
+
+export async function getAllParticipants() {
+  try {
+    const participants = await prisma.user.findMany({
+      where: {
+        permissions: {
+          some: {
+            permission_id: 2,
+          },
+        },
+      },
+      include: {
+        permissions: true,
+      },
+    });
+    return participants;
+  } catch (error) {
+    console.error("Erro ao obter participantes:", error);
+    throw error;
+  }
+}
+
+
+export async function getAllSpeakers() {
+  try {
+      const speakers = await prisma.user.findMany({
+        where: {
+          permissions: {
+            some: {
+              permission_id: 3,
+            },
+          },
+        },
+        include: {
+          permissions: true, // Inclui as permissões relacionadas se necessário
+        },
+      });
+      return speakers;
+  } catch (error) {
+      console.error("Erro ao obter palestrantes:", error);
+      throw error;
+  }
 }
 
 export async function findUserLogin(user_cpf: string, user_password: string) {

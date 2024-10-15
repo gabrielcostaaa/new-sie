@@ -3,29 +3,29 @@
 import { useEffect, useState } from 'react';
 import ListUsers from "@/components/ListUsers";
 import FilterUsers from "@/components/FilterUsers";
-import { getAllUsers } from '@/backend/usuario/RepositorioUsuario'; // Ajuste o caminho conforme a localização do seu arquivo
+import { getAllSpeakers } from '@/backend/usuario/RepositorioUsuario';
 
 export default function Palestrante() {
-  const [users, setUsers] = useState([]);
+  const [speakers, setSpeakers] = useState([]);
 
-  useEffect(() => {
-    async function fetchUsers() {
+    useEffect(() => {
+    async function fetchSpeakers() {
       try {
-        const fetchedUsers = await getAllUsers();
-        console.log("Usuários recebidos:", fetchedUsers); // Verifica o que está sendo recebido
-        setUsers(fetchedUsers);
+        const fetchedSpeakers = await getAllSpeakers();
+        console.log("Palestrantes recebidos:", fetchedSpeakers); // Verifica o que está sendo recebido
+        setSpeakers(fetchedSpeakers);
       } catch (error) {
-        console.error("Erro ao buscar usuários:", error);
+        console.error("Erro ao buscar palestrantes:", error);
       }
     }
 
-    fetchUsers();
+    fetchSpeakers();
   }, []);
 
   return (
     <>
       <FilterUsers />
-      <ListUsers users={users} />
+      <ListUsers users={speakers} />
     </>
   );
 }

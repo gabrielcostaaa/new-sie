@@ -1,10 +1,31 @@
-import { Button } from "@/components/ui/button";
+'use client'
+
+import { useEffect, useState } from 'react';
+import ListUsers from "@/components/ListUsers";
+import FilterUsers from "@/components/FilterUsers";
+import { getAllParticipants } from '@/backend/usuario/RepositorioUsuario';
 
 export default function Participantes() {
+  const [participants, setParticipants] = useState([]);
+
+  useEffect(() => {
+    async function fetchParticipants() {
+      try {
+        const fetchedParticipants = await getAllParticipants();
+        console.log("Participantes recebidos:", fetchedParticipants);
+        setParticipants(fetchedParticipants);
+    } catch (error) {
+      console.error("Erro ao buscar participantes:", error);
+    }
+  }
+
+  fetchParticipants();
+  }, []);
+
   return (
     <>
-    <h1>Aqui a página da listagem de todos os Participantes para o Admin</h1>
-    <h2>Onde ele tera uma listagem de todos os participantes do sistema, possibilitando cadastrar e filtrar também</h2>
+    <FilterUsers/>
+    <ListUsers users={participants}/>
     </>
   );
 }
