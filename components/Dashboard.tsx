@@ -11,7 +11,7 @@ export default function Dashboard() {
     <div className="grid min-h-screen w-full">
       <main className="grid flex-1 gap-4 p-4 sm:gap-8 sm:p-6">
         <h1 className="font-semibold text-2xl">Dashboard</h1>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-2 animate-fade-up animate-once animate-duration-[950ms] animate-ease-in-out animate-normal animate-fill-forwards">
           <Card className="">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium">Total de Eventos</CardTitle>
@@ -53,7 +53,7 @@ export default function Dashboard() {
             </CardContent>
           </Card>
         </div>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 animate-fade-down animate-once animate-duration-[950ms] animate-ease-in-out animate-normal animate-fill-forwards">
           <Card className="col-span-2 lg:col-span-2">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium">Events by Month</CardTitle>

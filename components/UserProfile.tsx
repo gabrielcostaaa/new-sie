@@ -4,11 +4,10 @@ import { Sun , MapPin, Phone, Briefcase, Cake, MessagesSquare, SquareUser, Build
 
 export default function UserProfile ({user}:any) {
     return (
-
         <div className="w-full h-full sm:p-6">
         <h1 className="font-semibold text-2xl mb-8">Meu Perfil</h1>
         <div>
-          <Card className="p-6">
+          <Card className="p-6 animate-fade-right animate-once animate-duration-[950ms] animate-ease-in-out animate-normal animate-fill-forwards">
             <div className="flex items-center">
               <img 
               src={user.user_avatar}
@@ -18,7 +17,20 @@ export default function UserProfile ({user}:any) {
               <div className="p-6">
                 <h4 className="font-semibold text-3xl ">{user.user_name}</h4>
                 <p className="mt-2">{user.user_email}</p>
-                <span>Palestrante ta estático</span>
+                <div className="mt-2">
+                  <span className="font-semibold">Permissões: </span>
+                  {user.permissions && user.permissions.length > 0 ? (
+                    <ul>
+                      {user.permissions.map((perm:any) => (
+                        <li key={perm.permission_id} className="list-disc ml-4">
+                          {perm.permission.permission_name}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <span>Nenhuma permissão encontrada</span>
+                  )}
+                </div>
               </div>
             </div>
             <CardContent className="mt-8">
@@ -67,6 +79,10 @@ export default function UserProfile ({user}:any) {
                 <h3 className="font-semibold">Telefone:</h3>
                 <p>{user.user_number_work}</p>
               </div>
+              <div className="text-sm text-muted-foreground mt-8">
+                    <p>Usuário criado em: {new Date(user.user_createdAt).toLocaleString()}</p>
+                    <p>Usuário atualizado em: {new Date(user.user_updatedAt).toLocaleString()}</p>
+                  </div>
             </CardContent>
           </Card>
         </div>

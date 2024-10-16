@@ -166,8 +166,19 @@ export async function findUserPermissions(user_id: number) {
 
   export async function findUserProfile(user_email: string) {
     return prisma.user.findUnique({
-      where: { user_email: user_email }
-    })
+      where: { user_email: user_email },
+      include: {
+        permissions: {
+          include: {
+            permission: {
+              select: {
+                permission_name: true // Aqui estamos pegando apenas o nome da permissão
+              }
+            }
+          }
+        }
+      }
+    });
   }
 
   export async function UserTermsAccept(user_id: number) {

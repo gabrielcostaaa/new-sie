@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 
   export default function ListEvents( { events }: ListEventsProps) {
   return (
-    <Card className="w-full max-w-md rounded-lg overflow-hidden shadow-lg transition-all hover:shadow-xl">
+    <Card className="w-full max-w-md rounded-lg overflow-hidden shadow-lg transition-all hover:shadow-xl animate-fade-up animate-once animate-duration-[950ms] animate-ease-in-out animate-normal animate-fill-forwards">
       <div className="relative">
         <img
           src={events.event_image}

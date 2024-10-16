@@ -37,7 +37,7 @@ export default function Component() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col items-start justify-start bg-background px-8 py-16 sm:px-10 lg:px-12">
+    <div className="flex min-h-screen flex-col items-start justify-start bg-background px-8 py-16 sm:px-10 lg:px-12 animate-fade animate-once animate-duration-[950ms] animate-ease-in-out animate-normal animate-fill-forwards">
       <div className="w-full space-y-14">
         <div className="flex justify-start">
           <img 

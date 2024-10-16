@@ -38,7 +38,7 @@ export default function CardTicket({ tickets, user }: { tickets: any; user: any 
   };
 
   return (
-    <Card className="w-full max-w-sm">
+    <Card className="w-full max-w-sm animate-fade-up animate-once animate-duration-[950ms] animate-ease-in-out animate-normal animate-fill-forwards">
       <div className="relative">
         <img
           src={tickets.event.event_image}

@@ -39,7 +39,7 @@ export default function ListUsers({ users }: ListUsersProps) {
           </TableHeader>
           <TableBody>
             {currentUsers.map((user) => (
-              <TableRow key={user.user_id} className='cursor-pointer'>
+              <TableRow key={user.user_id} className='cursor-pointer animate-fade-right animate-once animate-duration-1000 animate-ease-in-out animate-normal animate-fill-forwards'>
                 <TableCell className="flex items-center gap-x-4 font-medium">
                   <Avatar className="h-8 w-8">
                     <AvatarImage src={user.user_avatar} />

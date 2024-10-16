@@ -38,7 +38,7 @@ export default function Component({ event, id, user, registration }: { event: an
   }
 
   return (
-    <div className="h-full w-full">
+    <div className="h-full w-full animate-fade-down animate-once animate-duration-[950ms] animate-ease-in-out animate-normal animate-fill-forwards">
       <img
         src={event.event_image}
         width={1920}
