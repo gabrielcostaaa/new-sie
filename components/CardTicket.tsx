@@ -85,7 +85,7 @@ export default function CardTicket({ tickets, user }: { tickets: any; user: any 
             <Button 
               type="submit"
               variant="outline" 
-              className="w-2/5 text-sm text-white py-2 bg-destructive hover:bg-red-500 hover:text-white"
+              className="text-sm text-white py-2 bg-destructive hover:bg-red-500 hover:text-white"
             >
               Cancelar Ingresso
             </Button>

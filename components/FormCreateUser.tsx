@@ -47,11 +47,11 @@ export default function FormCreateUser() {
   
     return (
       <div className="mx-auto max-w-2xl space-y-6">
-        <div className="space-y-2 text-center">
+        <div className="space-y-2 text-center animate-fade-up animate-once animate-duration-[950ms] animate-ease-in-out">
           <h1 className="text-3xl font-bold">Criar Usuário</h1>
           <p className="text-muted-foreground">Preencha o formulário para criar um usuário no sistema.</p>
         </div>
-        <Card>
+        <Card className="animate-fade-down animate-once animate-duration-[950ms] animate-ease-in-out">
           <form onSubmit={handleSubmitCreateAccount}>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-4 mt-4">
