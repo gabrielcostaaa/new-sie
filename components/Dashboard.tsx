@@ -82,7 +82,7 @@ export default function Dashboard() {
           </Card>
         </div>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-2 animate-fade-up animate-once animate-duration-[950ms] animate-ease-in-out animate-normal animate-fill-forwards">
-        <Card>
+        <Card className="h-32">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium">Média Avaliações</CardTitle>
               <UsersIcon className="w-4 h-4 text-muted-foreground" />
@@ -92,7 +92,7 @@ export default function Dashboard() {
               <p className="text-xs text-muted-foreground">+3 from last month</p>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="h-32">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium">Média Participantes / Eventos</CardTitle>
               <UsersIcon className="w-4 h-4 text-muted-foreground" />
@@ -103,19 +103,19 @@ export default function Dashboard() {
             </CardContent>
           </Card>
         </div>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 animate-fade-down animate-once animate-duration-[950ms] animate-ease-in-out animate-normal animate-fill-forwards">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <Card className="col-span-2 lg:col-span-2">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-sm font-medium">Eventos por Mês</CardTitle>
               <CalendarIcon className="w-4 h-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <ChartEvents></ChartEvents>
+              <ChartEvents events={events}/>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="animate-fade-down animate-once animate-duration-[950ms] animate-ease-in-out animate-normal animate-fill-forwards">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium">Calend</CardTitle>
+              <CardTitle className="text-sm font-medium">Calendário</CardTitle>
               <CalendarIcon className="w-4 h-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
