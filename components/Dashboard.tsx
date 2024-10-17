@@ -10,6 +10,7 @@ import { ChartTooltipContent, ChartTooltip, ChartContainer } from "@/components/
 import { getAllEvents } from "@/backend/evento/RepositorioEvento"
 import { getAllParticipants } from "@/backend/usuario/RepositorioUsuario"
 import LoadingSpinner from "./LoadingSpinner"
+import ChartEvents from "./ChartEvents"
 
 
 export default function Dashboard() {
@@ -109,7 +110,7 @@ export default function Dashboard() {
               <CalendarIcon className="w-4 h-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              {/* <BarchartChart className="aspect-[16/9]" /> ESTUDAR CHARTS DO SHADCNUI PARA POR GRÁFICOS*/}
+              <ChartEvents></ChartEvents>
             </CardContent>
           </Card>
           <Card>

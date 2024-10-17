@@ -39,16 +39,16 @@ export default function ListUsers({ users }: ListUsersProps) {
           </TableHeader>
           <TableBody>
             {currentUsers.map((user) => (
-              <TableRow key={user.user_id} className='cursor-pointer animate-fade-right animate-once animate-duration-1000 animate-ease-in-out animate-normal animate-fill-forwards'>
-                <TableCell className="flex items-center gap-x-4 font-medium">
+              <TableRow key={user.user_id} className='cursor-pointer'>
+                <TableCell className="flex items-center gap-x-4 font-medium animate-fade-right animate-once animate-duration-1000 animate-ease-in-out animate-normal animate-fill-forwards">
                   <Avatar className="h-8 w-8">
                     <AvatarImage src={user.user_avatar} />
                     <AvatarFallback>{user.user_name ? user.user_name.charAt(0) : 'JD'}</AvatarFallback>
                   </Avatar>
                   <span>{user.user_name}</span>
                 </TableCell>
-                <TableCell>{user.user_cpf}</TableCell>
-                <TableCell className="flex items-center gap-x-4">
+                <TableCell className='animate-fade animate-once animate-duration-1000 animate-ease-in-out animate-normal animate-fill-forwards'>{user.user_cpf}</TableCell>
+                <TableCell className="flex items-center gap-x-4 animate-fade animate-once animate-duration-1000 animate-ease-in-out animate-normal animate-fill-forwards">
                   <img src={brasoes[user.user_city_work]} alt={`${user.user_city_work} brasão`} className="h-6 w-6" />
                   <span>{user.user_city_work}</span>
                 </TableCell>
