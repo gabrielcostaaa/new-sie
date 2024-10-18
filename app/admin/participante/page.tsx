@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import ListUsers from "@/components/ListUsers";
-import FilterUsers from "@/components/FilterUsers";
 import { getAllParticipants } from '@/backend/usuario/RepositorioUsuario';
 import LoadingSpinner from '@/components/LoadingSpinner';
 
@@ -32,7 +31,6 @@ export default function Participantes() {
 
   return (
     <>
-    <FilterUsers/>
     <ListUsers users={participants}/>
     </>
   );

@@ -6,10 +6,21 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { ListUsersProps } from "@/types"
 import brasoes from '@/app/data/constants/brasoes'
 import PaginationUsers from "@/components/PaginationUsers"
+import UserProfile from './UserProfile'
+import FilterUsers from '@/components/FilterUsers'
 
 const ITEMS_PER_PAGE = 9
 
 export default function ListUsers({ users }: ListUsersProps) {
+  
+      const [selectedUser, setSelectedUser] = useState(null);
+      const [isDetailsUserOpen, setIsDetailsUserOpen] = useState(false);
+
+      const handleUserClick = (user) => {
+        setSelectedUser(user);  // Define o usuário selecionado
+        setIsDetailsUserOpen(true);   // Abre o modal
+      };
+
       const [currentPage, setCurrentPage] = useState(1);
 
       // Calcular o índice dos usuários para a página atual
@@ -25,8 +36,15 @@ export default function ListUsers({ users }: ListUsersProps) {
         setCurrentPage(newPage);
       };
 
+      if (isDetailsUserOpen) {
+        return (
+          <UserProfile user={selectedUser}/>
+        )
+      }
+
     return (
       <>
+      <FilterUsers />
       <div className="border rounded-lg w-full h-full flex flex-col">
       <div className="overflow-auto flex-grow">
         <Table>
@@ -39,7 +57,7 @@ export default function ListUsers({ users }: ListUsersProps) {
           </TableHeader>
           <TableBody>
             {currentUsers.map((user) => (
-              <TableRow key={user.user_id} className='cursor-pointer'>
+              <TableRow key={user.user_id} className='cursor-pointer' onClick={() => handleUserClick(user)}>
                 <TableCell className="flex items-center gap-x-4 font-medium animate-fade-right animate-once animate-duration-1000 animate-ease-in-out animate-normal animate-fill-forwards">
                   <Avatar className="h-8 w-8">
                     <AvatarImage src={user.user_avatar} />

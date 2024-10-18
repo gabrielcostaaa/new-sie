@@ -94,7 +94,11 @@ export async function getAllParticipants() {
         },
       },
       include: {
-        permissions: true,
+        permissions: {
+          include: {
+            permission: true, // Isso inclui os detalhes da permissão, incluindo o nome
+          },
+        },
       },
     });
     return participants;
@@ -111,12 +115,16 @@ export async function getAllSpeakers() {
         where: {
           permissions: {
             some: {
-              permission_id: 3,
+              permission_id: 3, // Permissão específica para palestrantes
             },
           },
         },
         include: {
-          permissions: true, // Inclui as permissões relacionadas se necessário
+          permissions: {
+            include: {
+              permission: true, // Isso inclui os detalhes da permissão, incluindo o nome
+            },
+          },
         },
       });
       return speakers;

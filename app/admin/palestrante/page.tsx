@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import ListUsers from "@/components/ListUsers";
-import FilterUsers from "@/components/FilterUsers";
 import { getAllSpeakers } from '@/backend/usuario/RepositorioUsuario';
 import LoadingSpinner from '@/components/LoadingSpinner';
 
@@ -31,7 +30,6 @@ export default function Palestrante() {
 
   return (
     <>
-      <FilterUsers />
       <ListUsers users={speakers} />
     </>
   );

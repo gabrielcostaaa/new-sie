@@ -1,11 +1,13 @@
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "./ui/button"
 import { Separator } from "@/components/ui/separator"
-import { Sun , MapPin, Phone, Briefcase, Cake, MessagesSquare, SquareUser, Building2 } from 'lucide-react'
+import { Sun , MapPin, Phone, Briefcase, Cake, MessagesSquare, SquareUser, Building2, Trash2, UserPen } from 'lucide-react'
+import { DialogDeleteUser } from "./DialogDeleteUser"
 
 export default function UserProfile ({user}:any) {
+
     return (
         <div className="w-full h-full sm:p-6">
-        <h1 className="font-semibold text-2xl mb-8">Meu Perfil</h1>
         <div>
           <Card className="p-6 animate-fade-right animate-once animate-duration-[950ms] animate-ease-in-out animate-normal animate-fill-forwards">
             <div className="flex items-center">
@@ -79,14 +81,21 @@ export default function UserProfile ({user}:any) {
                 <h3 className="font-semibold">Telefone:</h3>
                 <p>{user.user_number_work}</p>
               </div>
-              <div className="text-sm text-muted-foreground mt-8">
-                    <p>Usuário criado em: {new Date(user.user_createdAt).toLocaleString()}</p>
-                    <p>Usuário atualizado em: {new Date(user.user_updatedAt).toLocaleString()}</p>
-                  </div>
+              <div className="flex items-center mt-6">
+                <div className="mr-4">
+                  <DialogDeleteUser />
+                  <Button className="ml-2">
+                    <UserPen className="mr-2"/>Editar
+                  </Button>
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  <p>Usuário criado em: {new Date(user.user_createdAt).toLocaleString()}</p>
+                  <p>Usuário atualizado em: {new Date(user.user_updatedAt).toLocaleString()}</p>
+                </div>
+              </div>
             </CardContent>
           </Card>
         </div>
       </div>
-
     )
 }
