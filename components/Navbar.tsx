@@ -5,6 +5,7 @@ import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuSep
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Bell, Plus, MessageCircleMore, QrCode, CircleUserRound, Lock, Fingerprint, Bolt} from 'lucide-react'
 import { getServerSession } from "next-auth"
+import Image from 'next/image'
 
 export default async function Component() {
   const session = await getServerSession()
@@ -12,11 +13,13 @@ export default async function Component() {
   return (
     <header className="flex h-16 w-full items-center justify-between px-4 md:px-6 bg-muted/20 border-b">
       <Link href="/admin" className="flex items-center gap-2" prefetch={false}>
-        <img 
-          src="/logo-sie-2024.png" 
-          alt="Logo Small" 
-          className="h-12 w-12" 
-        />
+      <Image 
+        src="/logo-sie-2024.png" 
+        alt="Logo Small" 
+        width={48}
+        height={48}
+        className="h-12 w-12" 
+      />
       </Link>
       <div className="flex items-center gap-4">
         <DropdownMenu>

@@ -8,6 +8,7 @@ import MyQRCode from '@/components/MyQRCode';
 import brasoes from "@/app/data/constants/brasoes";
 import { ListCardTicketsProps } from "@/types";
 import DownloadTicketPDF from '../components/DownloadTicketPDF';
+import Image from 'next/image';
 
 export default function CardTicket({ tickets, user }: { tickets: any; user: any }) {
   const router = useRouter();
@@ -40,13 +41,23 @@ export default function CardTicket({ tickets, user }: { tickets: any; user: any 
   return (
     <Card className="w-full max-w-sm animate-fade-up animate-once animate-duration-[950ms] animate-ease-in-out animate-normal animate-fill-forwards">
       <div className="relative">
-        <img
+        <Image
           src={tickets.event.event_image}
           alt="Event Photo"
-          className="rounded-t-lg object-cover aspect-[2/1]"
+          className="rounded-t-lg object-cover"
+          width={800}
+          height={400}
+          layout="responsive"
         />
         <div className="absolute top-2 left-2 inline-flex items-center gap-1 px-1 py-0.5 rounded-full bg-municipios-gradient text-primary-foreground text-[10px] font-medium">
-          <img src={brasoes[tickets.event.event_city]} className="h-4 w-4" />
+        <Image
+          src={brasoes[tickets.event.event_city]}
+          alt="City Logo"
+          width={16}
+          height={16}
+          className="h-4 w-4"
+          layout="fixed"
+        />
           {tickets.event.event_city}
         </div>
       </div>

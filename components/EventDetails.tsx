@@ -9,6 +9,7 @@ import { registerUserEvent } from "@/backend/ingressos/RepositorioIngressos"
 import { useState, useEffect } from "react"
 import { useRouter } from 'next/navigation'
 import { useToast } from '@/components/ui/use-toast'
+import Image from "next/image"
 
 
 export default function Component({ event, id, user, registration }: { event: any; id: any; user: any; registration:any }) {
@@ -39,13 +40,14 @@ export default function Component({ event, id, user, registration }: { event: an
 
   return (
     <div className="h-full w-full animate-fade-down animate-once animate-duration-[950ms] animate-ease-in-out animate-normal animate-fill-forwards">
-      <img
+      <Image
         src={event.event_image}
+        alt="Event Image"
         width={1920}
         height={720}
-        alt="Event Image"
         className="w-full h-[320px] sm:h-[480px] object-cover rounded-sm"
         style={{ aspectRatio: "1920/720", objectFit: "cover" }}
+        layout="responsive" // Responsivo para manter a proporção ao redimensionar
       />
       <div className="container mx-auto px-4 sm:px-6 md:px-8 py-8 sm:py-12 md:py-16">
         <div className="grid gap-8">
@@ -63,7 +65,13 @@ export default function Component({ event, id, user, registration }: { event: an
               <div className="flex items-center gap-2">
                 <MapPinned className="h-4 w-4" />
                 <span>{event.event_location}, {event.event_city}</span>
-                <img src={brasoes[event.event_city]} className="h-6 w-6" />
+                <Image
+                  src={brasoes[event.event_city]}
+                  alt="City Emblem"
+                  width={24}
+                  height={24}
+                  className="h-6 w-6"
+                />
               </div>
             </div>
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between">

@@ -3,19 +3,20 @@ import Link from 'next/link'
 import { ListEventsProps, brasoes } from "@/types"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import Image from 'next/image'
 
   export default function ListEvents( { events }: ListEventsProps) {
   return (
     <Card className="w-full max-w-md rounded-lg overflow-hidden shadow-lg transition-all hover:shadow-xl animate-fade-up animate-once animate-duration-[950ms] animate-ease-in-out animate-normal animate-fill-forwards">
       <div className="relative">
-        <img
-          src={events.event_image}
-          alt="Event Image"
-          width="400"
-          height="240"
-          className="w-full h-60 object-cover"
-          style={{ aspectRatio: "400/240", objectFit: "cover" }}
-        />
+      <Image
+        src={events.event_image}
+        alt="Event Image"
+        width={400}
+        height={240}
+        className="w-full h-60 object-cover"
+        style={{ aspectRatio: "400/240", objectFit: "cover" }}
+      />
         <div
           className={`absolute top-4 left-4 inline-flex items-center gap-2 px-2 py-1 rounded-full ${
             events.event_declaration === 1

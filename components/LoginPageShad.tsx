@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import PasswordToggle from "@/components/PasswordToggle";
 import { signIn } from "next-auth/react";
 import { Card } from "@/components/ui/card";
+import Image from 'next/image';
 
 const validaFormLoginSchema = zod.object({
   login: zod.string().min(1, "Login é obrigatório"),
@@ -40,13 +41,13 @@ export default function Component() {
     <div className="flex min-h-screen flex-col items-start justify-start bg-background px-8 py-16 sm:px-10 lg:px-12 animate-fade animate-once animate-duration-[950ms] animate-ease-in-out animate-normal animate-fill-forwards">
       <div className="w-full space-y-14">
         <div className="flex justify-start">
-          <img 
-            src="/logo-sie-2024-svg.svg" 
-            alt="Company Logo" 
-            width={64} 
-            height={64} 
-            className="h-20 w-auto" 
-          />
+        <Image
+          src="/logo-sie-2024-svg.svg"
+          alt="Company Logo"
+          width={64}
+          height={64}
+          className="h-20 w-auto"
+        />
         </div>
         <div className="text-start">
           <h2 className="text-4xl font-bold tracking-tight text-foreground">

@@ -8,6 +8,7 @@ import brasoes from '@/app/data/constants/brasoes'
 import PaginationUsers from "@/components/PaginationUsers"
 import UserProfile from './UserProfile'
 import FilterUsers from '@/components/FilterUsers'
+import Image from 'next/image'
 
 const ITEMS_PER_PAGE = 9
 
@@ -67,7 +68,13 @@ export default function ListUsers({ users }: ListUsersProps) {
                 </TableCell>
                 <TableCell className='animate-fade animate-once animate-duration-1000 animate-ease-in-out animate-normal animate-fill-forwards'>{user.user_cpf}</TableCell>
                 <TableCell className="flex items-center gap-x-4 animate-fade animate-once animate-duration-1000 animate-ease-in-out animate-normal animate-fill-forwards">
-                  <img src={brasoes[user.user_city_work]} alt={`${user.user_city_work} brasão`} className="h-6 w-6" />
+                <Image
+                  src={brasoes[user.user_city_work]}
+                  alt={`${user.user_city_work} brasão`}
+                  width={24}
+                  height={24}
+                  className="h-6 w-6"
+                />
                   <span>{user.user_city_work}</span>
                 </TableCell>
               </TableRow>

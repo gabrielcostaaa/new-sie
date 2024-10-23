@@ -3,6 +3,7 @@ import { Button } from "./ui/button"
 import { Separator } from "@/components/ui/separator"
 import { Sun , MapPin, Phone, Briefcase, Cake, MessagesSquare, SquareUser, Building2, Trash2, UserPen } from 'lucide-react'
 import { DialogDeleteUser } from "./DialogDeleteUser"
+import Image from "next/image"
 
 export default function UserProfile ({user}:any) {
 
@@ -11,11 +12,13 @@ export default function UserProfile ({user}:any) {
         <div>
           <Card className="p-6 animate-fade-right animate-once animate-duration-[950ms] animate-ease-in-out animate-normal animate-fill-forwards">
             <div className="flex items-center">
-              <img 
+            <Image 
               src={user.user_avatar}
               alt="Image Profile" 
-              className="w-[150px] h-[150px] rounded-full"
-              />
+              width={150} // Corresponde às dimensões específicas
+              height={150} 
+              className="w-[150px] h-[150px] rounded-full" 
+            />
               <div className="p-6">
                 <h4 className="font-semibold text-3xl ">{user.user_name}</h4>
                 <p className="mt-2">{user.user_email}</p>
