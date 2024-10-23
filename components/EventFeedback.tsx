@@ -1,4 +1,3 @@
-// EventFeedback.js
 'use client';
 
 import StarRating from './StarRating';
@@ -17,9 +16,9 @@ const EventFeedback = () => {
   const handleRatingChange = (value, criteria) => {
     setRatings((prevRatings) => ({
       ...prevRatings,
-      [criteria]: value, // Atualiza apenas o critério correspondente
+      [criteria]: value,
     }));
-    console.log("Rating submitted for", criteria, ": ", value); // Exibe o valor atual que está sendo enviado
+    console.log("Rating submitted for", criteria, ": ", value);
   };
 
   const [totalRating, setTotalRating] = useState(0)
