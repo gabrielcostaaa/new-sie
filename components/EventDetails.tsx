@@ -12,7 +12,7 @@ import { useToast } from '@/components/ui/use-toast'
 import Image from "next/image"
 
 
-export default function Component({ event, id, user, registration }: { event: any; id: any; user: any; registration:any }) {
+export default function Component({ event, id, user, registration, status }: { event: any; id: any; user: any; registration:any; status:string }) {
 
   const [ticket, setTicket] = useState(false)
   const router = useRouter()
@@ -24,7 +24,7 @@ export default function Component({ event, id, user, registration }: { event: an
     }
   }, [registration])
 
-  const isRegistrationClosed = event.event_num_registrations >= event.event_max_registrations
+  const isRegistrationClosed = (event.event_num_registrations >= event.event_max_registrations) || status == "Inscrições Encerradas"
 
   const handleSubmit = async (event) => {
     event.preventDefault()

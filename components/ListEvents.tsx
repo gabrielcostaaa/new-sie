@@ -52,7 +52,7 @@ import Image from 'next/image'
             {events.event_num_registrations} / {events.event_max_registrations} Participantes
           </span>
         </div>
-          <Link href={`/admin/evento/${events.event_id}`} passHref>
+          <Link href={`/admin/evento/${events.event_id}?status=${events.status}`} passHref>
             <Button variant="outline" size="sm">
               Detalhes
             </Button>
