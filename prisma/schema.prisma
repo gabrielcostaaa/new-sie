@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,103 +7,98 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  user_id       Int               @id @default(autoincrement()) // ID único para cada usuário, gerado automaticamente com autoincrement
-  user_name     String
-  user_password String
-  user_cpf      String            @unique // CPF do usuário, deve ser único para garantir a identificação individual
-  user_rg       String
-  user_email    String            @unique // Email do usuário, deve ser único para evitar duplicação de contas
-  user_number   String
-  user_nationality String
-  user_state    String
-  user_city     String
-  user_occupation String
-  user_city_work String
-  user_entity   String
-  user_number_work String?
-  user_avatar   String?
-  user_date_of_birth String       @default("")
-  user_createdAt DateTime         @default(now())   // Data e hora de criação do registro, padrão é a data e hora atuais
-  user_updatedAt DateTime         @updatedAt // Data e hora da última atualização do registro, atualizado automaticamente
-  user_isDeleted Boolean          @default(false) // Campo para exclusão lógica, padrão é false (não deletado)
-  user_termsAccepted Boolean      @default(false) // Nova coluna para termos de privacidade
-  
-  permissions   UserPermission[]
-  registrations EventRegistration[]
+model event {
+  event_id                            Int                 @id @default(autoincrement())
+  event_title                         String              @db.VarChar(200)
+  event_description                   String?             @db.LongText
+  event_partnership                   String?             @db.VarChar(500)
+  event_max_registrations             Int
+  event_num_registrations             Int
+  event_location                      String              @db.VarChar(100)
+  event_city                          String              @db.VarChar(100)
+  event_project_number                String?             @db.VarChar(20)
+  event_certificate_start_number      Int?
+  event_certificate_end_number        Int?
+  event_image                         String?             @db.LongText
+  user_id                             Int
+  event_declaration                   Int                 @default(0)
+  event_document_attachment           Int?
+  event_content_choice                Int?
+  event_segment                       Int?
+  event_header_image                  String?             @db.LongText
+  event_signature_image               String?             @db.LongText
+  document_orientations_path          String?             @db.LongText
+  document_orientations_description_1 String?             @db.LongText
+  document_orientations_description_2 String?             @db.LongText
+  event_conclusion                    Int
+  event_end_date                      String
+  event_end_time                      String
+  event_registration_end_date         String
+  event_registration_end_time         String
+  event_registration_start_date       String
+  event_registration_start_time       String
+  event_start_date                    String
+  event_start_time                    String
+  event_confirm_registration          Int                 @default(0)
+  event_qr_code                       String              @unique(map: "Event_event_qr_code_key")
+  eventregistration                   eventregistration[]
 }
 
-model Permission {
-  permission_id   Int               @id @default(autoincrement()) // ID único para cada permissão, gerado automaticamente com autoincrement
-  permission_name String            @unique // Nome da permissão, deve ser único para evitar duplicação
-  description     String?           // Descrição opcional da permissão
-  
-  users           UserPermission[]
+model eventregistration {
+  registration_id       Int      @id @default(autoincrement())
+  user_id               Int
+  event_id              Int
+  registration_qr_code  String   @unique(map: "EventRegistration_registration_qr_code_key")
+  registration_status   Int      @default(1)
+  registration_date     DateTime @default(now())
+  presence_confirmed    Boolean  @default(false)
+  registration_feedback String?
+  event                 event    @relation(fields: [event_id], references: [event_id], onDelete: Cascade, map: "EventRegistration_event_id_fkey")
+  user                  user     @relation(fields: [user_id], references: [user_id], onDelete: Cascade, map: "EventRegistration_user_id_fkey")
+
+  @@unique([user_id, event_id], map: "EventRegistration_user_id_event_id_key")
+  @@index([event_id], map: "EventRegistration_event_id_fkey")
 }
 
-model UserPermission {
+model permission {
+  permission_id   Int              @id @default(autoincrement())
+  permission_name String           @unique(map: "Permission_permission_name_key")
+  description     String?
+  userpermission  userpermission[]
+}
+
+model user {
+  user_id            Int                 @id @default(autoincrement())
+  user_name          String
+  user_password      String
+  user_cpf           String              @unique(map: "User_user_cpf_key")
+  user_rg            String
+  user_email         String              @unique(map: "User_user_email_key")
+  user_number        String
+  user_nationality   String
+  user_state         String
+  user_city          String
+  user_occupation    String
+  user_city_work     String
+  user_entity        String
+  user_number_work   String?
+  user_createdAt     DateTime            @default(now())
+  user_updatedAt     DateTime
+  user_isDeleted     Boolean             @default(false)
+  user_avatar        String?
+  user_date_of_birth String              @default("")
+  user_termsAccepted Boolean             @default(false)
+  eventregistration  eventregistration[]
+  userpermission     userpermission[]
+}
+
+model userpermission {
   user_id       Int
   permission_id Int
-  assignedAt    DateTime            @default(now()) // Data e hora de atribuição da permissão, padrão é a data e hora atuais
-  
-  user          User                @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
-  permission    Permission          @relation(fields: [permission_id], references: [permission_id], onDelete: Cascade)
-  
+  assignedAt    DateTime   @default(now())
+  permission    permission @relation(fields: [permission_id], references: [permission_id], onDelete: Cascade, map: "UserPermission_permission_id_fkey")
+  user          user       @relation(fields: [user_id], references: [user_id], onDelete: Cascade, map: "UserPermission_user_id_fkey")
+
   @@id([user_id, permission_id])
+  @@index([permission_id], map: "UserPermission_permission_id_fkey")
 }
-
-model Event {
-  event_id                      Int      @id @default(autoincrement())
-  event_title                   String   @db.VarChar(200)  // O Título do Evento, não pode ser NULL
-  event_description             String?  @db.LongText      // A Descrição não é obrigatória
-  event_partnership             String?  @db.VarChar(500)  // Parcerias também não são obrigatórias
-  event_max_registrations       Int                       // Limite de participantes no evento, sendo obrigatório seu registro e alterável até o início do evento
-  event_num_registrations       Int                       // Contador de quantos participantes vão participar, a cada inscrição feita ou cancelada ele atualiza, inicialmente podendo ser NULL
-  event_registration_start_date String                       // Dia de início para inscrições do evento, obrigatório
-  event_registration_start_time String                       // Hora de início para inscrições do evento, obrigatório
-  event_registration_end_date   String                       // Data final de inscrição, obrigatório
-  event_registration_end_time   String                       // Hora final de inscrição, obrigatório
-  event_start_date              String                       // Data de início do evento, obrigatório
-  event_start_time              String                       // Hora de início do evento, obrigatório
-  event_end_date                String                       // Data de encerramento do evento, obrigatório
-  event_end_time                String                       // Hora de encerramento do evento, obrigatório
-  event_location                String   @db.VarChar(100) // Obrigatório a Localização do evento
-  event_city                    String   @db.VarChar(100) // Município onde irá ocorrer o evento
-  event_project_number          String?  @db.VarChar(20)  // Não é obrigatório
-  event_certificate_start_number Int?                     // Se emitir certificado, é para gerar um intervalo de número de certificado (para ser único a cada usuário), gerado assim que o evento é concluído
-  event_certificate_end_number   Int?                     // Número final do intervalo de certificado
-  event_image                   String?  @db.LongText     // Caminho para imagem do evento
-  event_qr_code                 String   @unique   @default(cuid())       // Para ter a opção de presença pelo qrcode do evento, do participante ou dos dois
-  user_id                       Int                       // Usuário Administrador do sistema que criou o evento, obrigatório
-  event_confirm_registration    Int      @default(0)                 // Um booleano, quando 0 não irá ter confirmação de inscrição por parte do responsável pelo evento, caso 1 irá ter (aparece mensagem na dashboar do responsável para confirmar o participante)
-  event_declaration             Int      @default(0)      // Um booleano, quando 0 o evento emite Certificado, quando 1 o evento emite Declaração, obrigatório
-  event_document_attachment     Int?                      // Um booleano checkbox, Documentos Obrigatórios para Anexar
-  event_content_choice          Int?                      // Um booleano checkbox, Participante pode escolher evento
-  event_segment                 Int?                      // Um booleano checkbox, Haverá escolha de segmentos, podendo destinar a qual público é o evento
-  event_header_image            String?  @db.LongText     // Para anexar cabeçalho ao certificado, estudar aplicabilidade
-  event_signature_image         String?  @db.LongText     // Para anexar assinatura ao certificado, estudar aplicabilidade
-  document_orientations_path    String?  @db.LongText     // Anexo de Orientações
-  document_orientations_description_1 String?  @db.LongText // Descrição 1 de orientações
-  document_orientations_description_2 String?  @db.LongText // Descrição 2 de orientações
-  event_conclusion              Int                       // Um booleano, se 0 o evento não foi concluído, se 1 o evento foi concluído, já fica em 0 quando cria
-  registrations EventRegistration[]
-}
-
-model EventRegistration {
-  registration_id     Int       @id @default(autoincrement()) // ID único para cada inscrição, gerado automaticamente
-  user_id             Int                                        // Relaciona a inscrição com um usuário específico
-  event_id            Int                                        // Relaciona a inscrição com um evento específico
-  registration_qr_code String   @unique                          // Código único do QR code para validação da presença
-  registration_status  Int       @default(1)                     // 0: cancelado, 1: pendente, 2: confirmado
-  registration_date   DateTime @default(now())                   // Data e hora em que a inscrição foi feita
-  presence_confirmed  Boolean  @default(false)                   // Indica se a presença foi confirmada ou não
-  registration_feedback String?                                  // Feedback do usuário após o evento, opcional
-  
-  user                User      @relation(fields: [user_id], references: [user_id], onDelete: Cascade)
-  event               Event     @relation(fields: [event_id], references: [event_id], onDelete: Cascade)
-
-  @@unique([user_id, event_id])                                   // Garante que cada usuário possa se inscrever apenas uma vez por evento
-}
-
-
-

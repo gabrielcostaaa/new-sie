@@ -24,7 +24,7 @@ export default function Component({ event, id, user, registration, status }: { e
     }
   }, [registration])
 
-  const isRegistrationClosed = (event.event_num_registrations >= event.event_max_registrations) || status == "Inscrições Encerradas"
+  const isRegistrationClosed = (event.event_num_registrations >= event.event_max_registrations) || status === "Inscrições Encerradas"
 
   const handleSubmit = async (event) => {
     event.preventDefault()
