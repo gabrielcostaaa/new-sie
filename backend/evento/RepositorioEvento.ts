@@ -109,7 +109,7 @@ export async function getAllEvents() {
       const user_id = user.user_id;
   
       // Verificar se o usuário já está registrado no evento
-      const registration = await prisma.eventRegistration.findFirst({
+      const registration = await prisma.eventregistration.findFirst({
         where: {
           event_id: event_id,
           user_id: user_id,

@@ -4,6 +4,7 @@ import { ListEventsProps } from "@/types";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Image from 'next/image';
+import EvaluateEvent from './EvaluateEvent';
 
 export default function ListEvents({ events, option }: ListEventsProps) {
 
@@ -19,14 +20,7 @@ export default function ListEvents({ events, option }: ListEventsProps) {
             className="w-full h-60 object-cover"
             style={{ aspectRatio: "400/240", objectFit: "cover" }}
           />
-          <div className="absolute inset-0 bg-white opacity-80 flex items-center justify-center">
-            <div className="text-center">
-              <h4 className="text-lg font-semibold mb-2">Avalie o Evento</h4>
-              <Link href={`/admin/avaliacoes/${events.event_id}`} passHref>
-                <Button variant="primary">Avaliar</Button>
-              </Link>
-            </div>
-          </div>
+          {events.event_conclusion == 1 && <EvaluateEvent event_id={events.event_id}/>}
           <div
             className={`absolute top-4 left-4 inline-flex items-center gap-2 px-2 py-1 rounded-full ${
               events.event_declaration === 1

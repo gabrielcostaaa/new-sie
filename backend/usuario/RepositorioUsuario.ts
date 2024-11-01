@@ -63,7 +63,7 @@ export async function createAccount(formData: FormData) {
         }
  
         if (userPermissions.length > 0) {
-          await prisma.userPermission.createMany({
+          await prisma.userpermission.createMany({
               data: userPermissions
           });
       }
@@ -87,14 +87,14 @@ export async function getAllParticipants() {
   try {
     const participants = await prisma.user.findMany({
       where: {
-        permissions: {
+        userpermission: {
           some: {
             permission_id: 2,
           },
         },
       },
       include: {
-        permissions: {
+        userpermission: {
           include: {
             permission: true, // Isso inclui os detalhes da permissão, incluindo o nome
           },
@@ -113,14 +113,14 @@ export async function getAllSpeakers() {
   try {
       const speakers = await prisma.user.findMany({
         where: {
-          permissions: {
+          userpermission: {
             some: {
               permission_id: 3, // Permissão específica para palestrantes
             },
           },
         },
         include: {
-          permissions: {
+          userpermission: {
             include: {
               permission: true, // Isso inclui os detalhes da permissão, incluindo o nome
             },
@@ -159,7 +159,7 @@ export async function findUserLogin(user_cpf: string, user_password: string) {
 }
 
 export async function findUserPermissions(user_id: number) {
-    return prisma.userPermission.findMany({
+    return prisma.userpermission.findMany({
         where: { user_id: user_id },
         select: {
           permission: {
@@ -176,7 +176,7 @@ export async function findUserPermissions(user_id: number) {
     return prisma.user.findUnique({
       where: { user_email: user_email },
       include: {
-        permissions: {
+        userpermission: {
           include: {
             permission: {
               select: {

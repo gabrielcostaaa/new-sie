@@ -1,10 +1,10 @@
 import EventFeedback from "@/components/EventFeedback";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 export default function Avaliacoes() {
   return (
     <div>
-        <p>Oi aqui é a tela de avaliações</p>
-        <EventFeedback/>
+          <EventFeedback/>
     </div>
   );
 }

@@ -8,7 +8,7 @@ export async function registerUserEvent(event_id: number, user_id: number) {
     try {
         const registration_qr_code = uuidv4();
         
-        const response = await prisma.eventRegistration.create({
+        const response = await prisma.eventregistration.create({
             data: {
                 user_id: user_id,
                 event_id: event_id,
@@ -16,7 +16,7 @@ export async function registerUserEvent(event_id: number, user_id: number) {
             }
         })
 
-        const registrationCount = await prisma.eventRegistration.count({
+        const registrationCount = await prisma.eventregistration.count({
           where: {
             event_id: event_id
           }
@@ -39,7 +39,7 @@ export async function registerUserEvent(event_id: number, user_id: number) {
 export async function deleteRegisterUserEvent(registration_id: number, user_id: number) {
   try {
     // Deletar o registro de ingresso específico
-    const registration = await prisma.eventRegistration.findUnique({
+    const registration = await prisma.eventregistration.findUnique({
       where: {
         registration_id: registration_id
       }
@@ -50,14 +50,14 @@ export async function deleteRegisterUserEvent(registration_id: number, user_id: 
       return;
     }
 
-    await prisma.eventRegistration.delete({
+    await prisma.eventregistration.delete({
       where: {
         registration_id: registration_id
       }
     });
 
     // Contar quantos registros restam para o evento
-    const registrationCount = await prisma.eventRegistration.count({
+    const registrationCount = await prisma.eventregistration.count({
       where: {
         event_id: registration.event_id
       }
@@ -84,7 +84,7 @@ export async function deleteRegisterUserEvent(registration_id: number, user_id: 
 export async function getAllRegistrations(user_id : number) {
     try {
         // Buscar todas as inscrições (registrations) do usuário específico
-        const registrations = await prisma.eventRegistration.findMany({
+        const registrations = await prisma.eventregistration.findMany({
           where: {
             user_id: user_id,
           },

@@ -45,13 +45,14 @@ export interface ListCardTicketsProps {
 }
 
 export interface Events {
-    id: number;
+    event_id: number;
     nameEvent: string;
     subtitleEvent: string;
     dateEvent: string;
-    declaraoEvent: Number;
-    imageEvent: string;
+    declaraoEvent: number;
+    event_image: string;
     municipioEvent: string;
+    eventStatus: string;
 }
 
 export interface ListEventsProps {
