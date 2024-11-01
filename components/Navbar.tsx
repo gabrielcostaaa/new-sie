@@ -6,6 +6,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Bell, Plus, MessageCircleMore, QrCode, CircleUserRound, Lock, Fingerprint, Bolt} from 'lucide-react'
 import { getServerSession } from "next-auth"
 import Image from 'next/image'
+import { ModeToggle } from '@/components/ModeToggle';
 
 export default async function Component() {
   const session = await getServerSession()
@@ -21,7 +22,7 @@ export default async function Component() {
         className="h-12 w-12" 
       />
       </Link>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-5">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon" className="relative rounded-full">
@@ -64,6 +65,8 @@ export default async function Component() {
             <QrCode className="h-5 w-5" />
           </Button>
         </Link>
+
+        <ModeToggle/>
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
