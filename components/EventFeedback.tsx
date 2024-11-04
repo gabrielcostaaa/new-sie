@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/tooltip"; // Ajuste o caminho se necessário
 import { AvaliationEvent } from '@/backend/avaliacoes/RepositorioAvaliacoes';
 import { findUserProfile } from '@/backend/usuario/RepositorioUsuario';
-import UserProfile from './UserProfile';
 
 const EventFeedback = ({ event_id, session_user }) => {
   const event_id_number = Number(event_id);
