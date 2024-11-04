@@ -42,6 +42,7 @@ model event {
   event_confirm_registration          Int                 @default(0)
   event_qr_code                       String              @unique(map: "Event_event_qr_code_key")
   eventregistration                   eventregistration[]
+  avaliations                         avaliation[]        @relation("EventAvaliations")  // Adiciona a relação nomeada aqui
 }
 
 model eventregistration {
@@ -90,6 +91,7 @@ model user {
   user_termsAccepted Boolean             @default(false)
   eventregistration  eventregistration[]
   userpermission     userpermission[]
+  avaliations                         avaliation[]        @relation("UserAvaliations")
 }
 
 model userpermission {
@@ -101,4 +103,21 @@ model userpermission {
 
   @@id([user_id, permission_id])
   @@index([permission_id], map: "UserPermission_permission_id_fkey")
+}
+
+model avaliation {
+  avaliation_id  Int     @id @default(autoincrement())
+  user_id        Int
+  event_id       Int
+  estrutura      Int
+  organizacao    Int
+  conteudo       Int
+  palestrantes   Int
+  total_rating    Int
+  feedback       String?   // Texto de feedback adicional
+  createdAt      DateTime @default(now())
+  event          event     @relation("EventAvaliations", fields: [event_id], references: [event_id], onDelete: Cascade)  // Define a relação nomeada
+  user           user      @relation("UserAvaliations", fields: [user_id], references: [user_id], onDelete: Cascade)
+
+  @@index([user_id, event_id], map: "Avaliation_user_id_event_id_key")
 }

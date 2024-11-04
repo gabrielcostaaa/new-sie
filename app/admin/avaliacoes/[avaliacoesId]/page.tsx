@@ -1,5 +1,5 @@
-"use client"
 import EventFeedback from "@/components/EventFeedback";
+import { getServerSession } from "next-auth";
 
 type Props = {
   params: {
@@ -7,12 +7,13 @@ type Props = {
   };
 };
 
-export default function AvaliacoesDetalhes({ params }: Props) {
+export default async function AvaliacoesDetalhes({ params }: Props) {
+  const session = await getServerSession()
   const { avaliacoesId } = params;
 
   return (
     <div>
-      <EventFeedback/>
+      <EventFeedback event_id={avaliacoesId} session_user={session}/>
     </div>
   );
 }
