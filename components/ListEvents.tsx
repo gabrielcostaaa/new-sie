@@ -5,22 +5,32 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Image from 'next/image';
 import EvaluateEvent from './EvaluateEvent';
+import { getServerSession } from 'next-auth';
+import { GetServerSideProps } from 'next';
+import { findUserProfile } from '@/backend/usuario/RepositorioUsuario';
 
-export default function ListEvents({ events, option }: ListEventsProps) {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getServerSession(context); // Passando o contexto
+  const profile = await findUserProfile(session?.user.email);
+  // Retorne as props que você precisa, incluindo a sessão ou outros dados necessários
+  return { props: { profile } }; // Retornando um objeto com "props"
+}
+
+export default function ListEvents({ events, option, session }: ListEventsProps) { // Desestruturando session aqui
 
   if (events.eventStatus === option) {
     return (
       <Card className="w-full max-w-md rounded-lg overflow-hidden shadow-lg transition-all hover:shadow-xl animate-fade-up animate-once animate-duration-[950ms] animate-ease-in-out animate-normal animate-fill-forwards">
         <div className="relative">
           <Image
-            src={events.event_image}
+            src={events.event_image} // Corrigido
             alt="Event Image"
             width={400}
             height={240}
             className="w-full h-60 object-cover"
             style={{ aspectRatio: "400/240", objectFit: "cover" }}
           />
-          {events.event_conclusion == 1 && <EvaluateEvent event_id={events.event_id}/>}
+          {events.event_conclusion == 1 && <EvaluateEvent event_id={events.event_id} />}
           <div
             className={`absolute top-4 left-4 inline-flex items-center gap-2 px-2 py-1 rounded-full ${
               events.event_declaration === 1
@@ -75,3 +85,4 @@ export default function ListEvents({ events, option }: ListEventsProps) {
     return null;
   }
 }
+

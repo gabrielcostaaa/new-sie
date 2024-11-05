@@ -22,3 +22,12 @@ export async function AvaliationEvent(event_id: number, user_id: number, ratings
         console.error("Erro ao avaliar o evento:", error);
     }
 }
+
+export async function getAvaliationEventByUserId(){
+    try {
+        const response = 1
+        return response
+    } catch (error) {
+        
+    }
+}

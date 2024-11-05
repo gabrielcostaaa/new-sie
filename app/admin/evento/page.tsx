@@ -6,6 +6,7 @@ import { getAllEvents } from '@/backend/evento/RepositorioEvento';
 import NoTickets from '@/components/NoTickets';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import SelectStatusEvents from '@/components/SelectStatusEvents';
+import { getAvaliationEventByUserId } from '@/backend/avaliacoes/RepositorioAvaliacoes';
 
 export default function Evento() {
   const [events, setEvents] = useState([]);

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Button } from "@/components/ui/button";
 
-const EvaluateEvent = ({ event_id }: { event_id: number }) => {
+const EvaluateEvent = ({ event_id, user_id }: { event_id: number; user_id: number }) => {
   return (
     <div className="absolute inset-0 bg-white opacity-50 transition-opacity duration-300 ease-in-out transform hover:opacity-75 flex items-center justify-center">
         <div className="text-center">
