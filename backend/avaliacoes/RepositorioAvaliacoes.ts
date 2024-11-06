@@ -23,11 +23,23 @@ export async function AvaliationEvent(event_id: number, user_id: number, ratings
     }
 }
 
-export async function getAvaliationEventByUserId(){
+export async function getAvaliationEventByUserId(user_id: number) {
     try {
-        const response = 1
-        return response
+      const evaluations = await prisma.avaliation.findMany({
+        where: {
+          user_id: user_id,
+        },
+        select: {
+          event_id: true,  // ID do evento associado à avaliação
+          total_rating: true,     // Nota da avaliação
+          feedback: true,  // Comentários ou feedback
+          createdAt: true, // Data de criação da avaliação
+        },
+      });
+      console.log('deu boa', evaluations)
+      return evaluations;
     } catch (error) {
-        
+      console.error("Erro ao buscar avaliações do usuário:", error);
+    return error
     }
-}
+  }

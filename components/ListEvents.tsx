@@ -8,29 +8,61 @@ import EvaluateEvent from './EvaluateEvent';
 import { getServerSession } from 'next-auth';
 import { GetServerSideProps } from 'next';
 import { findUserProfile } from '@/backend/usuario/RepositorioUsuario';
+import { useEffect, useState } from 'react';
+import { getAvaliationEventByUserId } from '@/backend/avaliacoes/RepositorioAvaliacoes';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const session = await getServerSession(context); // Passando o contexto
-  const profile = await findUserProfile(session?.user.email);
-  // Retorne as props que você precisa, incluindo a sessão ou outros dados necessários
-  return { props: { profile } }; // Retornando um objeto com "props"
-}
+  const session = await getServerSession(context); // Passando context aqui
+  const profile = session ? await findUserProfile(session.user.email) : null;
+  
+  console.log("Session:", session);
+  console.log("Profile:", profile);
 
-export default function ListEvents({ events, option, session }: ListEventsProps) { // Desestruturando session aqui
+  return { props: { profile } };
+};
+
+export default function ListEvents({
+  events,
+  option,
+  profile,
+}: ListEventsProps & { profile: { user_id: number } }) {
+  const [evaluations, setEvaluations] = useState<any[]>([]); // Tipagem mais genérica para o estado
+
+  useEffect(() => {
+    const fetchEvaluations = async () => {
+      console.log("Fetching evaluations for user:", profile?.user_id);
+      if (profile?.user_id) {
+        const userEvaluations = await getAvaliationEventByUserId(profile.user_id);
+        console.log("Fetched evaluations:", userEvaluations);
+        setEvaluations(userEvaluations);
+      }
+    };
+
+    fetchEvaluations();
+  }, [profile?.user_id]);
+
+  const specificEvaluation = evaluations.find(
+    (evaluation) => evaluation.event_id === events.event_id
+  ) || null;
+
+  console.log("Event:", events);
+  console.log("Specific Evaluation:", specificEvaluation);
 
   if (events.eventStatus === option) {
     return (
       <Card className="w-full max-w-md rounded-lg overflow-hidden shadow-lg transition-all hover:shadow-xl animate-fade-up animate-once animate-duration-[950ms] animate-ease-in-out animate-normal animate-fill-forwards">
         <div className="relative">
           <Image
-            src={events.event_image} // Corrigido
+            src={events.event_image}
             alt="Event Image"
             width={400}
             height={240}
             className="w-full h-60 object-cover"
             style={{ aspectRatio: "400/240", objectFit: "cover" }}
           />
-          {events.event_conclusion == 1 && <EvaluateEvent event_id={events.event_id} />}
+          {events.event_conclusion == 1 && (
+            <EvaluateEvent event_id={events.event_id} evaluation={specificEvaluation} />
+          )}
           <div
             className={`absolute top-4 left-4 inline-flex items-center gap-2 px-2 py-1 rounded-full ${
               events.event_declaration === 1
@@ -60,13 +92,15 @@ export default function ListEvents({ events, option, session }: ListEventsProps)
             </div>
           </div>
           <div className="flex items-center justify-between mb-4">
-            <div className={`flex items-center gap-2 text-sm ${
-              events.eventStatus === "Evento Encerrado"
-                ? "text-muted-foreground"
-                : events.event_num_registrations === events.event_max_registrations
-                ? "text-red-500"
-                : "text-green-600"
-              }`}>
+            <div
+              className={`flex items-center gap-2 text-sm ${
+                events.eventStatus === "Evento Encerrado"
+                  ? "text-muted-foreground"
+                  : events.event_num_registrations === events.event_max_registrations
+                  ? "text-red-500"
+                  : "text-green-600"
+              }`}
+            >
               <UserRoundCheck className="w-5 h-5" />
               <span className="text-sm">
                 {events.event_num_registrations} / {events.event_max_registrations} Participantes
@@ -85,4 +119,3 @@ export default function ListEvents({ events, option, session }: ListEventsProps)
     return null;
   }
 }
-
